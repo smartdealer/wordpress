@@ -1,0 +1,26 @@
+# Smart Dealership, 2012
+# Patrick Otto
+# Centralizing system images
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# config dir, block listing
+AddType image/png png
+DirectoryIndex index.php
+Options -Indexes 
+
+# config rules
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)$ get-image.php?m=$1&c=$2&o=$3&img_w=$4&ed=$5  [L]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)$ get-image.php?i=$1&o=$2&img_w=$3&e=$4 [L]
+RewriteRule ^(.*)$ index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+ 
+    ErrorDocument 404 /index.php
+ 
+</IfModule>
+
