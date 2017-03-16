@@ -11,9 +11,21 @@ Coloque seu estoque online e em tempo real com o plugin Smart Dealer de integra�
 
 ### Flags de conteúdo
 
-* [smartdealer_novos] para listagem de veículos novos
-* [smartdealer_usados] para listagem de veículos usados
-* [smartdealer_corsia] para listagem de veículos do estoque futuro
-* [smartdealer_veiculo_novo] para detalhar o veículo novo
-* [smartdealer_veiculo_usado] para detalhar o veículo usado
-* [smartdealer_veiculo_corsia] para detalhar o veículo de estoque futuro
+Ao adicionar a flag no conteúdo da página, o plugin irá automaticamente preencher com conteúdo dinâmico.
+
+| Flag          |  Descrição  |
+| ------------- | ------------- 
+| [smartdealer_novos]            | listagem de veículos novos
+| [smartdealer_usados]            | listagem de veículos usados
+| [smartdealer_corsia]            | listagem de veículos corsia
+| [smartdealer_veiculo_novo]            | exibe os detalhes de um veículo novo
+| [smartdealer_veiculo_usado]            | exibe os detalhes de um veículo usado
+| [smartdealer_veiculo_corsia]            | exibe os detalhes de um veículo corsia
+
+Corsia é o estoque futuro da concessionária quando houver integração disponível. 
+
+--
+
+Para mais informações, entre em contato com a Smart Dealer.
+
+Direitos reservados à Smart Dealer Soluções em Software Ltda.
