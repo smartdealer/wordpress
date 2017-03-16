@@ -1,12 +1,10 @@
-/**
+﻿/**
  * Local image cacher, to loading images fasting
  *
- * @package   Smart Dealership, Numeor Framework (c)
+ * @package   Smart Dealer Getimage
  * @author    Patrick Otto <patrick@smartdealership.com.br>
- * @author    William Pamplona <will@smartdealership.com.br>
- * @author    Jonas de Magalhães Gomes <jonas@smartdealership.com.br>
- * @version   1.0.10
- * @copyright Smart Dealer (c), Sept 2014
+ * @version   2.0.1
+ * @copyright Smart Dealer (c), Sept 2014-2017
  * @see       http://www.smartdealer.com.br
  * 
  * Installation Suport
@@ -20,6 +18,8 @@ INSTALLATION STEPS
 2. Enable "rewrite.mod" module on Apache settings and reload services
 3. Set "775" read/write permissions on folder "cache"
 4. Test the loading of images
+
+Good Look!
 
 TESTE LOADING
 
