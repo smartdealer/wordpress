@@ -1,0 +1,21 @@
+
+/* 
+    Created on : 10/09/2018, 10:09:34
+    Author     : Patrick Otto
+*/
+
+hr{
+    width: 99%;
+    clear:both;
+    float:left
+}
+
+.page-header{
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+div.updated{
+    margin: 0;
+    margin-right: 10px;
+}
