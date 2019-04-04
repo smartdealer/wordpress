@@ -19,7 +19,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
 ?>
 <div class="row sd-scope">
     <form action="<?php echo SmartDealer::formAction() ?>" name="busca" method=get>
-        <div class=container>    
+        <div class="sd-container">    
             <div class="row">    
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
                     <div class="form-filter">
@@ -29,22 +29,12 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                             <input value="<?php echo SmartDealer::formGet('query') ?>" placeholder="Buscar orgânica.." name="query" class="form-control"/>
                         </div>
                         <div class="clearfix clear"></div>
-                        <?php $a = $api->getMarks(); ?>
+                        <?php $a = $api->getFamilies(); ?>
                         <div class="form-group">
-                            <select class=form-control name=marca>
-                                <option value="">Marca</option>
+                            <select class=form-control name=familia>
+                                <option value="">Familia</option>
                                 <?php foreach ($a as $row): ?>
-                                    <option value="<?php echo $row['item'] ?>" <?php if (SmartDealer::formGet('mraca') == $row['item']) echo "selected=selected" ?>><?php echo $row['item'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="clearfix clear"></div>
-                        <?php $a = $api->getModels(); ?>
-                        <div class="form-group">
-                            <select class=form-control name=modelo>
-                                <option value="">Modelo</option>
-                                <?php foreach ($a as $row): ?>
-                                    <option value="<?php echo $row['item'] ?>" <?php if (SmartDealer::formGet('modelo') == $row['item']) echo "selected=selected" ?>><?php echo $row['item'] ?></option>
+                                    <option value="<?php echo $row['item'] ?>" <?php if (SmartDealer::formGet('familia') == $row['item']) echo "selected=selected" ?>><?php echo $row['item'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -57,38 +47,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <?php $a = $api->getFuels(); ?>
-                        <div class="form-group">
-                            <select class=form-control name=combustivel>
-                                <option value="">Combustível</option>
-                                <?php foreach ($a as $row): ?>
-                                    <option value="<?php echo $row['item'] ?>" <?php if (SmartDealer::formGet('combustivel') == $row['item']) echo "selected=selected" ?>><?php echo $row['item'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
                         <div class="clearfix"></div>
-                        <div class="filter-label">Faixa de Ano</div> 
-                        <div class="clearfix"></div>
-                        <div class="col-xs-12 range-slider-gp">
-                            <div id="range-ano"></div>
-                            <div class="clearfix"></div>
-                            <div class="range left" id="range-min-ano"></div>
-                            <div class="range right" id="range-max-ano"></div>
-                            <input id="ano-min" name="ano_min" type="hidden" value="0"/>
-                            <input id="ano-max" name="ano_max" type="hidden" value="0"/>
-                        </div>    
-                        <div class="clearfix"></div>
-                        <div class="filter-label">Faixa de Preço</div> 
-                        <div class="clearfix"></div>
-                        <div class="col-xs-12 range-slider-gp">
-                            <div id="range-preco"></div>
-                            <div class="clearfix"></div>
-                            <div class="range left" id="range-min"></div>
-                            <div class="range right" id="range-max"></div>
-                            <input id="preco-min" name="preco_min" type="hidden" value="0"/>
-                            <input id="preco-max" name="preco_max" type="hidden" value="0"/>
-                        </div>    
-                        <div class="clear clearfix"></div>
                         <div id=form_register_btn class=text-center>
                             <input class="btn btn-primary btn-lg" type=submit value=Buscar style="padding: 10px 45px;" id=submit>
                         </div>
@@ -101,8 +60,6 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                             <select class="form-control input-sm pull-right select-order" name="campo_ordenador"> 
                                 <option value="modelo" <?php if (SmartDealer::formGet('campo_ordenador') == 'modelo') echo "selected=selected" ?>>Modelo</option>
                                 <option value="cor" <?php if (SmartDealer::formGet('campo_ordenador') == 'cor') echo "selected=selected" ?>>Cor</option>
-                                <option value="preco" <?php if (SmartDealer::formGet('campo_ordenador') == 'preco') echo "selected=selected" ?>>Preço</option>
-                                <option value="ano" <?php if (SmartDealer::formGet('campo_ordenador') == 'ano') echo "selected=selected" ?>>Ano</option>
                             </select>
                         </div>
                         <div class="col-md-6 col-xs-12 input-order no-padding">
@@ -117,11 +74,12 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                         <?php $data = $api->getData(); ?>
                         <?php if ($data && is_array($data)): ?>
                             <?php foreach ($data as $row) : ?>
+                                <?php $img = explode('/', substr($row['url_imagem'], 0, -4)); ?>
                                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 row-item">
                                     <div class="content-item">
-                                        <a href="<?php echo SmartDealer::link($row['placa'], $row['modelo']); ?>">
+                                        <a href="<?php echo SmartDealer::link($row['id'], $row['modelo']); ?>">
                                             <div class="image-item">
-                                                <img src="<?php echo SmartDealer::img($row['id'], null, null, 250, 1, true) ?>" alt="<?php echo $row['modelo']; ?>" class="img-responsive">
+                                                <img src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 250) ?>" alt="<?php echo $row['modelo']; ?>" class="img-responsive">
                                             </div>
                                             <h3><?php echo SmartDealer::prepareName($row['modelo']) ?></h3>
                                             <div class="col-md-6 no-padding text-left">
@@ -135,7 +93,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                                                 <div class="color-item"><?php echo SmartDealer::prepareName($row['cor']) ?></div>
                                             </div>
                                             <div class="col-md-6 no-padding text-right">
-                                                <div class="km-item"><?php echo ($row['km']) ?> KM</div>
+                                                <div class="km-item">0 KM</div>
                                             </div>
                                         </a>
                                         <div class="clearfix clear"></div>

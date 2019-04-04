@@ -4,9 +4,6 @@
     Author     : Patrick
 */
 
-
-/* scope */
-
 .single-post:not(.has-sidebar) #primary, 
 .page.page-one-column #primary, 
 .archive.page-one-column:not(.has-sidebar) .page-header, 
@@ -22,14 +19,6 @@
 
 .sd-scope{
     margin-bottom: 15px;
-}
-
-.sd-cope p:empty{
-	display: none;
-}
-
-.sd-cope p:blank{
-	display: none;
 }
 
 .sd-scope .form-filter{
@@ -418,5 +407,3 @@
     display: block;
     color: #9a2827;
 }
-
-/* custom (new template) */

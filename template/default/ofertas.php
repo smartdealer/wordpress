@@ -172,7 +172,7 @@ $url_usados = $this->getLinkFlag('usados');
                                             <div class="col-md-3 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                                                 <a href="<?php echo SmartDealer::link($row['veiculo_chassi'], $row['modelo']) ?>" class="rmv_txt_drctn xx">
                                                     <div class="image">
-                                                        <img width="255" height="auto" style="max-height: 138px" src="<?php echo SmartDealer::urlPlugin('template/default/assets/img/pre-img.jpg'); ?>" data-src="<?php
+                                                        <img width="255" height="auto" style="max-height: 138px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwcHgiICBoZWlnaHQ9IjIwMHB4IiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJsZHMtcm9sbGluZyIgc3R5bGU9ImJhY2tncm91bmQ6IG5vbmU7Ij48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzZjOThlMSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoNjUuNzgxNCA1MCA1MCkiPjxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0icm90YXRlIiBjYWxjTW9kZT0ibGluZWFyIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIiBkdXI9IjFzIiBiZWdpbj0iMHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIj48L2FuaW1hdGVUcmFuc2Zvcm0+PC9jaXJjbGU+PC9zdmc+" data-src="<?php
                                                         $img = explode('/', substr($row['url_imagem'], 0, -4));
                                                         echo SmartDealer::img($row['id'], $img[0], $img[1], 257, 1, false);
                                                         ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
@@ -214,7 +214,7 @@ $url_usados = $this->getLinkFlag('usados');
                                             <div class="col-md-3 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                                                 <a href="<?php echo SmartDealer::link($row['id'], $row['modelo']); ?>" class="rmv_txt_drctn xx">
                                                     <div class="image">
-                                                        <img width="255" height="auto" style="max-height: 138px" src="<?php echo SmartDealer::urlPlugin('template/default/assets/img/pre-img.jpg'); ?>" data-src="<?php echo SmartDealer::img($row['id'], null, null, 257, 1, true) ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">							
+                                                        <img width="255" height="auto" style="max-height: 138px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwcHgiICBoZWlnaHQ9IjIwMHB4IiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJsZHMtcm9sbGluZyIgc3R5bGU9ImJhY2tncm91bmQ6IG5vbmU7Ij48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzZjOThlMSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoNjUuNzgxNCA1MCA1MCkiPjxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0icm90YXRlIiBjYWxjTW9kZT0ibGluZWFyIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIiBkdXI9IjFzIiBiZWdpbj0iMHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIj48L2FuaW1hdGVUcmFuc2Zvcm0+PC9jaXJjbGU+PC9zdmc+" data-src="<?php echo SmartDealer::img($row['id'], null, null, 257, 1, true) ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
                                                     </div>
                                                     <div class="listing-car-item-meta">
                                                         <div class="car-meta-top heading-font clearfix">
@@ -258,7 +258,7 @@ $url_usados = $this->getLinkFlag('usados');
                                                 <span></span>
                                                 <span></span>
                                             </div>
-                                            <a class="load-more-btn" href="<?php echo $this->getLinkFlag('novos'); ?>">
+                                            <a class="load-more-btn" href="<?php echo $this->getLinkFlag('usados'); ?>">
                                                 Ver mais	
                                             </a>
                                         </div>
@@ -274,9 +274,7 @@ $url_usados = $this->getLinkFlag('usados');
                                             <div class="col-md-3 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                                                 <a href="<?php echo SmartDealer::link($row['veiculo_chassi'], $row['modelo']); ?>" class="rmv_txt_drctn xx">
                                                     <div class="image">
-                                                        <img width="255" height="auto" style="max-height: 138px" src="<?php echo SmartDealer::urlPlugin('template/default/assets/img/pre-img.jpg'); ?>" data-src="<?php
-                                                        $img = explode('/', substr($row['url_imagem'], 0, -4));
-                                                        echo SmartDealer::img($row['id'], $img[0], $img[1], 257, 1, false); ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
+                                                        <img width="255" height="auto" style="max-height: 138px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwcHgiICBoZWlnaHQ9IjIwMHB4IiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJsZHMtcm9sbGluZyIgc3R5bGU9ImJhY2tncm91bmQ6IG5vbmU7Ij48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzZjOThlMSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoNjUuNzgxNCA1MCA1MCkiPjxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0icm90YXRlIiBjYWxjTW9kZT0ibGluZWFyIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIiBkdXI9IjFzIiBiZWdpbj0iMHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIj48L2FuaW1hdGVUcmFuc2Zvcm0+PC9jaXJjbGU+PC9zdmc+" data-src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 350) ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
                                                     </div>
                                                     <div class="listing-car-item-meta">
                                                         <div class="car-meta-top heading-font clearfix">
@@ -326,7 +324,7 @@ $url_usados = $this->getLinkFlag('usados');
                                                 <span></span>
                                                 <span></span>
                                             </div>
-                                            <a class="load-more-btn" href="<?php echo $this->getLinkFlag('novos'); ?>">
+                                            <a class="load-more-btn" href="<?php echo $url_novos ?>">
                                                 Ver mais	
                                             </a>
                                         </div>
@@ -341,7 +339,7 @@ $url_usados = $this->getLinkFlag('usados');
                                             <div class="col-md-3 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                                                 <a href="<?php echo SmartDealer::link($row['id'], $row['modelo']); ?>" class="rmv_txt_drctn xx">
                                                     <div class="image">
-                                                        <img width="255" height="auto" style="max-height: 138px" src="<?php echo SmartDealer::urlPlugin('template/default/assets/img/pre-img.jpg'); ?>" data-src="<?php echo SmartDealer::img($row['id'], null, null, 257, 1, true) ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
+                                                        <img width="255" height="auto" style="max-height: 138px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwcHgiICBoZWlnaHQ9IjIwMHB4IiAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiIGNsYXNzPSJsZHMtcm9sbGluZyIgc3R5bGU9ImJhY2tncm91bmQ6IG5vbmU7Ij48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzZjOThlMSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoNjUuNzgxNCA1MCA1MCkiPjxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0icm90YXRlIiBjYWxjTW9kZT0ibGluZWFyIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIiBkdXI9IjFzIiBiZWdpbj0iMHMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIj48L2FuaW1hdGVUcmFuc2Zvcm0+PC9jaXJjbGU+PC9zdmc+" data-src="<?php echo SmartDealer::img($row['id'], null, null, 257, 1, true) ?>" alt="<?php echo $row['modelo']; ?>" class="attachment-stm-img-255-135 size-stm-img-255-135 lazy">								
                                                     </div>
                                                     <div class="listing-car-item-meta">
                                                         <div class="car-meta-top heading-font clearfix">

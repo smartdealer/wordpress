@@ -846,16 +846,14 @@ class SmartDealer extends stdClass {
                     self::$link_modal = $b['uri'];
 
                     // include tpl
-                    include($this->realPathPlugin('template' . DS . self::getTemplate() . DS . $b['include']));
+                    if (file_exists($this->realPathPlugin('template' . DS . self::getTemplate() . DS . $b['include']))) {
+                        include_once($this->realPathPlugin('template' . DS . self::getTemplate() . DS . $b['include']));
+                    } else {
+                        echo 'O arquivo ' . $b['include'] . ' não existe na pasta do template.';
+                    }
 
                     // collect data
-					$c = ob_get_clean();
-				   
-					// remove white space
-					$c = preg_replace('/(\r|\r\n)+/', ' ', $c);
-					
-					// remove comments
-					$c = preg_replace('/<!--(.|\s)*?-->/','',$c);
+                    $c = ob_get_clean();
 
                     // kill
                     break;

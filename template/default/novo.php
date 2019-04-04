@@ -58,9 +58,11 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                 ajaxSuccess: function () {}
             }}};
 
+    });
+
 </script>
 
-<div class="stm-single-car-page sd-scope">
+<div class="stm-single-car-page">
     <div class="container">
         <div class="vc_row wpb_row vc_row-fluid">
             <div class="stm-vc-single-car-content-left wpb_column vc_column_container vc_col-sm-12 vc_col-lg-9">
@@ -105,8 +107,7 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                                 <!--Certified Logo 2-->
                             </ul>
                         </div>
-						<div style="clear:both;width:100%;margin:0;height:0px;"></div>
-						<div class="stm-car-carousels">
+                        <div class="stm-car-carousels">
                             <!--New badge with videos-->
                             <div class="stm-big-car-gallery">
                                 <?php $tot = ($row['tot_imagem'] >= 1) ? range(1, $row['tot_imagem']) : array(); ?>
@@ -223,7 +224,7 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                                                         <div class="lists-inline">
                                                             <?php $opt = array_filter((array) (explode(';', trim($row['opcionais'], '; ')))) ?>
                                                             <?php if ($opt) : ?>
-                                                                <ul class="list-style-3 " style="font-size: 13px;">
+                                                                <ul class="list-style-2" style="font-size: 13px;">
                                                                     <?php foreach ($opt as $op): ?> 
                                                                         <li><?php echo ucwords(SmartDealer::prepareOptString($op)) ?></li>
                                                                     <?php endforeach; ?>

@@ -43,15 +43,14 @@ add_action('init', function() {
     if (in_array($uri, array('novo', 'usado'))) {
 
         // remove me tags
-        #remove_action('wp_head', '_wp_render_title_tag', 1);
+        remove_action('wp_head', '_wp_render_title_tag', 1);
 
         // set headers
         header('Pragma: public');
         header('Cache-Control: max-age=' . $api::WS_DATA_CACHE_TIME);
         header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + WS_DATA_CACHE_TIME));
         header('Content-Type: text/html;charset=utf-8');
-	    header('Referrer-Policy: origin');
-	
+
         // compile content
         echo $api->compile($uri, true);
 
@@ -67,7 +66,6 @@ add_action('init', function() {
         header('Cache-Control: max-age=' . $api::WS_DATA_CACHE_TIME);
         header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + WS_DATA_CACHE_TIME));
         header('Content-type: application/json;charset=utf-8');
-		header('Referrer-Policy: origin');
 
         // compile content
         echo $api->compile($uri, true);

@@ -48,14 +48,14 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
 
 <script type="text/javascript">
 
-   /* stm_lang_code = (typeof stm_lang_code === 'string') ? stm_lang_code : 'pt_br';
+    stm_lang_code = (typeof stm_lang_code === 'string') ? stm_lang_code : 'pt_br';
     ajaxurl = (typeof ajaxurl === 'string') ? ajaxurl : '<?php echo SmartDealer::formAction() ?>';
 
     STMListings = (typeof STMListings === 'object') ? STMListings : {
         Filter: {prototype: {
                 ajaxBefore: function () {},
                 ajaxSuccess: function () {}
-            }}};*/
+            }}};
 
 </script>
 
@@ -130,79 +130,82 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                         </div>
                         <!--Enable carousel-->
                         <script type="text/javascript">
-                        jQuery(document).ready(function($) {
-    var big = $('.stm-big-car-gallery');
-    var small = $('.stm-thumbs-car-gallery');
-    var flag = false;
-    var duration = 800;
+                            jQuery(document).ready(function ($) {
+                                var big = $('.stm-big-car-gallery');
+                                var small = $('.stm-thumbs-car-gallery');
+                                var flag = false;
+                                var duration = 800;
 
-    var owlRtl = false;
-    if ($('body').hasClass('rtl')) {
-        owlRtl = true;
-    };
+                                var owlRtl = false;
+                                if ($('body').hasClass('rtl')) {
+                                    owlRtl = true;
+                                }
 
-    big.owlCarousel({
-        rtl: owlRtl,
-        items: 1,
-        smartSpeed: 800,
-        dots: false,
-        nav: false,
-        margin: 0,
-        autoplay: false,
-        loop: false,
-        responsiveRefreshRate: 1000
-    }).on('changed.owl.carousel', function(e) {
-        $('.stm-thumbs-car-gallery .owl-item').removeClass('current');
-        $('.stm-thumbs-car-gallery .owl-item').eq(e.item.index).addClass('current');
-        if (!flag) {
-            flag = true;
-            small.trigger('to.owl.carousel', [e.item.index, duration, true]);
-            flag = false;
-        }
-    });
+                                big
+                                        .owlCarousel({
+                                            rtl: owlRtl,
+                                            items: 1,
+                                            smartSpeed: 800,
+                                            dots: false,
+                                            nav: false,
+                                            margin: 0,
+                                            autoplay: false,
+                                            loop: false,
+                                            responsiveRefreshRate: 1000
+                                        })
+                                        .on('changed.owl.carousel', function (e) {
+                                            $('.stm-thumbs-car-gallery .owl-item').removeClass('current');
+                                            $('.stm-thumbs-car-gallery .owl-item').eq(e.item.index).addClass('current');
+                                            if (!flag) {
+                                                flag = true;
+                                                small.trigger('to.owl.carousel', [e.item.index, duration, true]);
+                                                flag = false;
+                                            }
+                                        });
 
-    small.owlCarousel({
-        rtl: owlRtl,
-        items: 5,
-        smartSpeed: 800,
-        dots: false,
-        margin: 22,
-        autoplay: false,
-        nav: true,
-        loop: false,
-        navText: [],
-        responsiveRefreshRate: 1000,
-        responsive: {
-            0: {
-                items: 2
-            },
-            500: {
-                items: 4
-            },
-            768: {
-                items: 5
-            },
-            1000: {
-                items: 5
-            }
-        }
-    }).on('click', '.owl-item', function(event) {
-        big.trigger('to.owl.carousel', [$(this).index(), 400, true]);
-    }).on('changed.owl.carousel', function(e) {
-        if (!flag) {
-            flag = true;
-            big.trigger('to.owl.carousel', [e.item.index, duration, true]);
-            flag = false;
-        }
-    });
+                                small
+                                        .owlCarousel({
+                                            rtl: owlRtl,
+                                            items: 5,
+                                            smartSpeed: 800,
+                                            dots: false,
+                                            margin: 22,
+                                            autoplay: false,
+                                            nav: true,
+                                            loop: false,
+                                            navText: [],
+                                            responsiveRefreshRate: 1000,
+                                            responsive: {
+                                                0: {
+                                                    items: 2
+                                                },
+                                                500: {
+                                                    items: 4
+                                                },
+                                                768: {
+                                                    items: 5
+                                                },
+                                                1000: {
+                                                    items: 5
+                                                }
+                                            }
+                                        })
+                                        .on('click', '.owl-item', function (event) {
+                                            big.trigger('to.owl.carousel', [$(this).index(), 400, true]);
+                                        })
+                                        .on('changed.owl.carousel', function (e) {
+                                            if (!flag) {
+                                                flag = true;
+                                                big.trigger('to.owl.carousel', [e.item.index, duration, true]);
+                                                flag = false;
+                                            }
+                                        });
 
-    if ($('.stm-thumbs-car-gallery .stm-single-image').length < 6) {
-        $('.stm-single-car-page .owl-controls').hide();
-        $('.stm-thumbs-car-gallery').css({
-            'margin-top': '22px'
-        });
-    }
-});
+                                if ($('.stm-thumbs-car-gallery .stm-single-image').length < 6) {
+                                    $('.stm-single-car-page .owl-controls').hide();
+                                    $('.stm-thumbs-car-gallery').css({'margin-top': '22px'});
+                                }
+                            });
                         </script>
                         <div class="vc_tta-container" data-vc-action="collapseAll">
                             <div class="vc_general vc_tta vc_tta-accordion vc_tta-o-shape-group vc_tta-o-no-fill vc_tta-o-all-clickable">

@@ -29,11 +29,11 @@ $api->addLead(array(
 # Dynamic data
 # - - - - - - - - - - - - - - -
 
+$img = explode('/', substr($row['url_imagem'], 0, -4));
 $year = explode('/', $row['ano_fab_mod']);
 $year = (\SmartDealer::prepareYear(current($year)) . '/' . \SmartDealer::prepareYear(next($year)));
 $fuel = \SmartDealer::prepareFuel($row['combustivel']);
 $color = ucwords(\SmartDealer::prepareString($row['cor'], true));
-$price = \SmartDealer::preparePrice($row['preco'], true);
 ?>
 <div class="sd-scope">
     <section class="sd-container">
@@ -48,22 +48,22 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                 <h1 page-meta="title" meta-data="<?php echo $title; ?>">
                     <?php echo $title; ?>
                 </h1>
-                <p page-meta="description" meta-data="<?php echo $title . ' por ' . $price; ?>"></p>
+                <p page-meta="description" meta-data="<?php echo $title ?>"></p>
             </div>
         </div>
         <div class="col-md-8">
             <div class="col-md-12">
                 <div style="max-height: 600px;overflow:hidden">
-                    <img class=img-responsive src="<?php echo SmartDealer::img($row['id'], null, null, 640, 1, true) ?>">
+                    <img class=img-responsive src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 640, 1, 0, array('img_bg' => '255,255,255')) ?>" alt>
                 </div>
-                <?php $tot = ($row['img_t'] >= 1) ? range(1, (int) $row['img_t']) : array(1); ?>
+                <?php $tot = ($row['tot_imagem'] >= 1) ? range(1, $row['tot_imagem']) : array(); ?>
                 <?php if ($tot): ?>
                     <div id="box-images">
                         <?php foreach ($tot as $i): ?>
                             <div class="item">
                                 <div class="item-img">
-                                    <a href="<?php echo SmartDealer::img($row['id'], null, null, 640, $i, true) ?>" data-toggle="lightbox" data-gallery="multiimages" data-title="<?php echo $title ?>">
-                                        <img src="<?php echo SmartDealer::img($row['id'], null, null, 180, $i, true) ?>" alt="<?php $i ?>"/>
+                                    <a href="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 640, $i) ?>" data-toggle="lightbox" data-gallery="multiimages" data-title="<?php echo $title ?>">
+                                        <img src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 180, $i) ?>" alt="<?php $i ?>"/>
                                     </a>
                                 </div>
                             </div>
@@ -109,19 +109,15 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
                 <tbody>
                     <tr>
                         <th scope="row">KM</th>
-                        <td><?php echo $row['km']; ?></td>
+                        <td>0</td>
                     </tr>
                     <tr>
-                        <th scope="row">Ano/Modelo</th>
-                        <td><?php echo $year; ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Combustível</th>
-                        <td><?php echo $fuel; ?></td>
+                        <th scope="row">Ano</th>
+                        <td><?php echo date('Y') ?></td>
                     </tr>
                     <tr>
                         <th scope="row">Cor</th>
-                        <td><?php echo $color; ?></td>
+                        <td><?php echo $color ?></td>
                     </tr>
                 </tbody>
             </table>
@@ -130,8 +126,7 @@ $price = \SmartDealer::preparePrice($row['preco'], true);
         <div class="col-md-4 col-price">
             <h4>&nbsp;</h4>
             <div class="label-price">
-                <h4>Por apenas </h4>
-                <span><?php echo $price; ?></span>
+                <span>Sob Consulta</span>
             </div>
             <div class="clear clearfix"></div>
         </div>
