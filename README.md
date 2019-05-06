@@ -4,10 +4,12 @@ Coloque seu estoque online e em tempo real com o plugin Smart Dealer de integra�
 ### Instalação
 
 1. Instale e ative o plugin
-2. Configure o usuário de integração
+2. Configure o usuário de integração (Disponível em Connect > Usuário do Webservice no Smart Dealer)
 3. Crie as páginas no Wordpress
 4. Adicione as flags de conteúdo
 5. Configure no plugin as páginas de destino (página da oferta/detalhes do veículo)
+
+OBS: Ao criar um novo usuário de integração, escolha a opção tipo/fluxo "Agência".
 
 ### Flags de conteúdo
 
