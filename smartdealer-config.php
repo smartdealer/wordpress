@@ -61,6 +61,9 @@ if (!empty($_POST['command']) && $_POST['command'] === 'reset-cache') {
                         <?php foreach ($tpl AS $k => $label): ?>
                             <option value="<?php echo $k; ?>" <?php if (get_option('smartdealer_template') == $k): ?>selected="selected"<?php endif; ?>><?php echo $label; ?></option>
                         <?php endforeach; ?>
+                        <?php if(!$tpl): ?>
+						    <option value="default">Padrão</option>
+						<?php endif; ?>
                     </select>
                 </td>
             </tr>
