@@ -44,6 +44,7 @@ $validRemote = false;
 $filterImage = false;
 $instance = (!empty($_SESSION['smartdealer_instancia'])) ? $_SESSION['smartdealer_instancia'] : filter_input(INPUT_GET, 'o', FILTER_SANITIZE_STRING);
 $owner = (stristr($instance, 'http')) ? ((stristr($instance, '//localhost')) ? 'localhost' : preg_replace('https?\://([a-zA-Z]+)\.smartdealer', '$1', $instance)) : $instance;
+$owner = strtok($owner,'.');
 
 // request width
 $thumb_w = !empty($_GET['img_w']) ? (int) $_GET['img_w'] : -1;
@@ -101,6 +102,7 @@ if ($rw = (!empty($_REQUEST['m']) and ! empty($_REQUEST['c'])) or ( isset($_REQU
     $model = ($rw) ? substr(addslashes(trim(strip_tags(preg_replace('/\s/m', '', $_REQUEST['m'])))), 0, 20) : $i[0];
     $color = ($rw) ? substr(addslashes(trim(strip_tags(preg_replace('/\s/m', '', $_REQUEST['c'])))), 0, 20) : $i[1];
     $owner = empty($_REQUEST['o']) ? '' : substr(addslashes(strip_tags(trim(preg_replace('/\s/m', '', $_REQUEST['o'])))), 0, 20);
+	$owner = strtok($owner,'.'); 
     $index = max((int) filter_input(INPUT_GET, 'e', FILTER_SANITIZE_NUMBER_INT), 1);
 
     // mount file name cache
@@ -130,6 +132,7 @@ elseif (isset($_GET['i']) and isset($_GET['o'])):
 
     // request param, pre sql injection tratament, remove html and limit string code
     $owner = empty($_GET['o']) ? null : substr(addslashes(strip_tags(trim(preg_replace('/\s/m', '', $_GET['o'])))), 0, 20);
+	$owner = strtok($owner,'.');
     $index = max((int) filter_input(INPUT_GET, 'e', FILTER_SANITIZE_NUMBER_INT), 1);
     $image = preg_replace('/\.[a-z]+$/i', '', $_GET['i']);
 
