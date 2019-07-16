@@ -1,4 +1,4 @@
-# Plugin Smart Dealer para Wordpress 2.0.1
+# Plugin Smart Dealer para Wordpress 2.0.2
 Coloque seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
 ### Instalação
