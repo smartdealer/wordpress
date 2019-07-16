@@ -1,4 +1,4 @@
-# Plugin Smart Dealer para Wordpress  
+# Plugin Smart Dealer para Wordpress 2.0.1
 Coloque seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
 ### Instalação
@@ -17,12 +17,13 @@ Ao adicionar a flag no conteúdo da página, o plugin irá automaticamente preen
 
 | Flag          |  Descrição  |
 | ------------- | ------------- 
-| [smartdealer_novos]            | listagem de veículos novos
-| [smartdealer_usados]            | listagem de veículos usados
-| [smartdealer_corsia]            | listagem de veículos corsia
-| [smartdealer_veiculo_novo]            | exibe os detalhes de um veículo novo
-| [smartdealer_veiculo_usado]            | exibe os detalhes de um veículo usado
-| [smartdealer_veiculo_corsia]            | exibe os detalhes de um veículo corsia
+| [novos]            | listagem de veículos novos
+| [usados]            | listagem de veículos usados
+| [estoque_futuro]            | listagem de veículos corsia
+| [novo]            | exibe os detalhes de um veículo novo
+| [usado]            | exibe os detalhes de um veículo usado
+| [corsia]            | exibe os detalhes de um veículo corsia
+| [ofertas]            | exibe os veiculos marcados como "em destaque"
 
 Corsia é o estoque futuro da concessionária quando houver integração disponível. 
 
