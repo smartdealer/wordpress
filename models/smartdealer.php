@@ -89,9 +89,9 @@ class SmartDealer extends stdClass {
 
     public function __construct() {
 
-        // set path
-        $this->ws_path = (stristr(get_option('smartdealer_instancia'), '://')) ? get_option('smartdealer_instancia') : 'https://' . get_option('smartdealer_instancia') . '.smartdealer.app/webservice/core.php?wsdl';
-
+         // set path
+        $this->ws_path = (stristr(get_option('smartdealer_instancia'), '://')) ? get_option('smartdealer_instancia') : 'https://' . str_replace(array('.smartdealer.app','.smartdealer.com.br'),'',get_option('smartdealer_instancia')) . '.smartdealer.app/webservice/core.php?wsdl';
+        
         // debug mode (for local tests)
         if (self::DEBUG_MODE) {
             $this->ws_path = 'http://localhost/smartdealer/webservice/core.php?wsdl';
