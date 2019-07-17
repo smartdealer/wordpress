@@ -1,0 +1,39 @@
+# Smart Dealership, 2012-2015
+# Patrick Otto
+# Centralizing system images
+
+ErrorDocument 404 /get-image.php
+Options -Indexes
+
+<IfModule mod_headers.c>
+
+   Header set Content-Language "%{lang}e" env=lang
+   Header set Cache-Control "public"
+
+</IfModule>
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)/(.*)$ get-image.php?m=$1&c=$2&o=$3&img_bg=$4&img_w=$5&ed=$6&%{QUERY_STRING} [L]
+RewriteRule ^(.*)/(.*)/(.*)/(.*)$ get-image.php?i=$1&o=$2&img_w=$3&e=$4 [L]
+RewriteRule ^(.*)$ get-image.php [L]
+
+</IfModule>
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault A600
+    ExpiresByType image/jpg A600
+    ExpiresByType image/png A600
+    ExpiresByType image/gif A600
+    ExpiresByType image/jpeg A600
+</IfModule>
+<IfModule mod_filter.c>
+    <IfModule mod_deflate.c>
+      <filesMatch "\.(css|js|x?html?|php)$">
+        SetOutputFilter DEFLATE
+      </filesMatch>
+    </IfModule>
+</IfModule>
