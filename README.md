@@ -1,6 +1,5 @@
 
 # Plugin Smart Dealer para Wordpress 2.0.5
-=======
 
 Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
