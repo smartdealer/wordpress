@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 # Plugin Smart Dealer para Wordpress 2.0.5
 =======
-# Plugin Smart Dealer para Wordpress 2.5.0
->>>>>>> 5c4e8110f9d9656d1b8cc328be5ac1a420b68723
 
 Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
