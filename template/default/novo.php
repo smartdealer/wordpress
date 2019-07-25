@@ -1,15 +1,17 @@
 <?php
+
 /**
  * The template body
  *
  * @package   Smart Dealer Wordpress Plugin
  * @author    Patrick Otto <patrick@smartdealership.com.br>
- * @version   2.0
+ * @author    Jean Carlos dos Santos <jean@smartdealership.com.br>
+ * @version   2.5.0
  * @access    public
  * @copyright Smart Dealer(c), Mar 2017-2018
  * @see       http://www.smartdealer.com.br
  */
-if (!($row = $api->getRow()) or ! (is_array($row)) or ! array_key_exists('modelo', $row)) {
+if (!($row = $api->getRow()) or !(is_array($row)) or !array_key_exists('modelo', $row)) {
     get_header();
     SmartDealer::show_404();
 }
@@ -24,8 +26,8 @@ $api->addLead(array(
     'telefone',
     'email',
     'mensagem',
-    'cidade',
-    'estado'), array(), $out);
+    'cidade'
+), array(), $out);
 
 # - - - - - - - - - - - - - - -
 # Header and meta tag (SEO)
@@ -43,395 +45,229 @@ $img = explode('/', substr($row['url_imagem'], 0, -4));
 $year = explode('/', $row['ano_fab_mod']);
 $year = (\SmartDealer::prepareYear(current($year)) . '/' . \SmartDealer::prepareYear(next($year)));
 $fuel = \SmartDealer::prepareFuel($row['combustivel']);
+$transmissao = ucwords(\SmartDealer::prepareString($row['transmissao'], true));
+$portas = ucwords(\SmartDealer::prepareString($row['portas'], true));
 $color = ucwords(\SmartDealer::prepareString($row['cor'], true));
 $price = \SmartDealer::preparePrice($row['preco'], true);
 ?>
 
 <script type="text/javascript">
-
     stm_lang_code = (typeof stm_lang_code === 'string') ? stm_lang_code : 'pt_br';
     ajaxurl = (typeof ajaxurl === 'string') ? ajaxurl : '<?php echo SmartDealer::formAction() ?>';
 
     STMListings = (typeof STMListings === 'object') ? STMListings : {
-        Filter: {prototype: {
-                ajaxBefore: function () {},
-                ajaxSuccess: function () {}
-            }}};
+    Filter: {
+        prototype: {
+            ajaxBefore: function() {},
+            ajaxSuccess: function() {}
+        }
+    }
+    };
 
     });
-
 </script>
 
-<div class="stm-single-car-page">
-    <div class="container">
-        <div class="vc_row wpb_row vc_row-fluid">
-            <div class="stm-vc-single-car-content-left wpb_column vc_column_container vc_col-sm-12 vc_col-lg-9">
-                <div class="vc_column-inner ">
-                    <div class="wpb_wrapper">
+<div class="sd-scope">
+    <section class="padding-bottom:20px;padding-top: 20px;" style="width:auto;height:auto;display:block;">
+        <div class=container>
+
+            <!-- status -->
+
+            <?php if ($out) : ?>
+
+                <div class="alert alert-success" role="alert">Sucesso! Em breve um de nossos vendedores entrará em contato.</div>
+
+            <?php elseif ($out === false) : ?>
+
+                <div class="alert alert-warning" role="alert">Ops! Ocorreu um erro ao enviar as informações.</div>
+
+            <?php endif; ?>
+
+            <div class=row>
+
+                <div class="col-md-12">
+                    <div class="col-md-12" style="padding-bottom:10px;">
                         <?php $title = \SmartDealer::prepareString($row['modelo'], true) ?>
                         <h2 class="title" page-meta="title" meta-data="<?php echo $title; ?>"><?php echo $title; ?></h2>
-                        <div class="single-car-actions">
-                            <ul class="list-unstyled clearfix">
-                                <!--Stock num-->
-                                <li>
-                                    <div class="stock-num heading-font"><span>CÓD #</span><?php echo ($row['id']) ?></div>
-                                </li>
-                                <!--Schedule-->
-                                <li>
-                                    <a href="#" class="car-action-unit stm-schedule" data-toggle="modal" data-target="#test-drive">
-                                        <i class="stm-icon-steering_wheel"></i>
-                                        Agendar Best Drive                
-                                    </a>
-                                </li>
-                                <!--COmpare-->
-                                <!--li>
-                                    <a
-                                        href="#"
-                                        class="car-action-unit add-to-compare"
-                                        data-id="<?php echo $row['id'] ?>"
-                                        data-action="add">
-                                        <i class="stm-icon-add"></i>
-                                        Add. p/ comparar                    
-                                    </a>
-                                </li-->
-                                <!--PDF-->
-                                <!--Share-->
-                                <!--Print button-->
-                                <li>
-                                    <a href="javascript:window.print()" class="car-action-unit stm-car-print heading-font">
-                                        <i class="fa fa-print"></i>
-                                        Imprimir página
-                                    </a>
-                                </li>
-                                <!--Certified Logo 1-->
-                                <!--Certified Logo 2-->
-                            </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="col-md-12">
+                        <div style="max-height: 600px;overflow:hidden">
+                            <img class=img-responsive src=<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 640, $i) ?>>
                         </div>
-                        <div class="stm-car-carousels">
-                            <!--New badge with videos-->
-                            <div class="stm-big-car-gallery">
-                                <?php $tot = ($row['tot_imagem'] >= 1) ? range(1, $row['tot_imagem']) : array(); ?>
-                                <?php if ($tot): ?>
-                                    <?php foreach ($tot as $i): ?>
-                                        <div class="stm-single-image" data-id="big-image-<?php echo $i; ?>">
-                                            <a href="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 1024, $i) ?>" class="stm_fancybox" rel="stm-car-gallery">
-                                                <img width="800" height="auto" src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 800, $i) ?>" class="img-responsive wp-post-image" alt="<?php echo $title ?>" />				
+                        <?php $tot = ($row['tot_imagem'] >= 1) ? range(1, $row['tot_imagem']) : array(); ?>
+                        <?php if ($tot) : ?>
+                            <div id="box-images">
+                                <?php foreach ($tot as $i) : ?>
+                                    <div class="item">
+                                        <div class="item-img">
+                                            <a href="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 640, $i) ?>" data-toggle="lightbox" data-gallery="multiimages" data-title="<?php echo $title ?>">
+                                                <img class=" img-responsive" src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 300, $i) ?>" alt="<?php echo $i ?>" />
                                             </a>
                                         </div>
-                                    <?php endforeach ?>
-                                <?php endif; ?>
-                            </div>
-                            <div class="stm-thumbs-car-gallery">
-                                <?php if ($tot): ?>
-                                    <?php foreach ($tot as $i): ?>
-                                        <div class="stm-single-image" id="big-image-<?php echo $i; ?>">
-                                            <img width="300" height="auto" src="<?php echo SmartDealer::img($row['id'], $img[0], $img[1], 300, $i) ?>" class="img-responsive wp-post-image" alt="<?php echo $title ?>"/>				
-                                        </div>
-                                    <?php endforeach ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <!--Enable carousel-->
-                        <script type="text/javascript">
-                            jQuery(document).ready(function ($) {
-                                var big = $('.stm-big-car-gallery');
-                                var small = $('.stm-thumbs-car-gallery');
-                                var flag = false;
-                                var duration = 800;
-
-                                var owlRtl = false;
-                                if ($('body').hasClass('rtl')) {
-                                    owlRtl = true;
-                                }
-
-                                big
-                                        .owlCarousel({
-                                            rtl: owlRtl,
-                                            items: 1,
-                                            smartSpeed: 800,
-                                            dots: false,
-                                            nav: false,
-                                            margin: 0,
-                                            autoplay: false,
-                                            loop: false,
-                                            responsiveRefreshRate: 1000
-                                        })
-                                        .on('changed.owl.carousel', function (e) {
-                                            $('.stm-thumbs-car-gallery .owl-item').removeClass('current');
-                                            $('.stm-thumbs-car-gallery .owl-item').eq(e.item.index).addClass('current');
-                                            if (!flag) {
-                                                flag = true;
-                                                small.trigger('to.owl.carousel', [e.item.index, duration, true]);
-                                                flag = false;
-                                            }
-                                        });
-
-                                small
-                                        .owlCarousel({
-                                            rtl: owlRtl,
-                                            items: 5,
-                                            smartSpeed: 800,
-                                            dots: false,
-                                            margin: 22,
-                                            autoplay: false,
-                                            nav: true,
-                                            loop: false,
-                                            navText: [],
-                                            responsiveRefreshRate: 1000,
-                                            responsive: {
-                                                0: {
-                                                    items: 2
-                                                },
-                                                500: {
-                                                    items: 4
-                                                },
-                                                768: {
-                                                    items: 5
-                                                },
-                                                1000: {
-                                                    items: 5
-                                                }
-                                            }
-                                        })
-                                        .on('click', '.owl-item', function (event) {
-                                            big.trigger('to.owl.carousel', [$(this).index(), 400, true]);
-                                        })
-                                        .on('changed.owl.carousel', function (e) {
-                                            if (!flag) {
-                                                flag = true;
-                                                big.trigger('to.owl.carousel', [e.item.index, duration, true]);
-                                                flag = false;
-                                            }
-                                        });
-
-                                if ($('.stm-thumbs-car-gallery .stm-single-image').length < 6) {
-                                    $('.stm-single-car-page .owl-controls').hide();
-                                    $('.stm-thumbs-car-gallery').css({'margin-top': '22px'});
-                                }
-                            });
-                        </script>
-                        <div class="vc_tta-container" data-vc-action="collapseAll">
-                            <div class="vc_general vc_tta vc_tta-accordion vc_tta-o-shape-group vc_tta-o-no-fill vc_tta-o-all-clickable">
-                                <div class="vc_tta-panels-container">
-                                    <div class="vc_tta-panels">
-                                        <div class="vc_tta-panel vc_active" id="1535736303477-f6c50be4-5579" data-vc-content=".vc_tta-panel-body">
-                                            <div class="vc_tta-panel-heading">
-                                                <h4 class="vc_tta-panel-title"><a href="#1535736303477-f6c50be4-5579" data-vc-accordion data-vc-container=".vc_tta-container"><span class="vc_tta-title-text">Lista dos itens de série</span><i class="vc_tta-controls-icon vc_tta-controls-icon-plus"></i></a></h4>
-                                            </div>
-                                            <div class="vc_tta-panel-body">
-                                                <div class="">
-                                                    <div class="stm-single-listing-car-features">
-                                                        <div class="lists-inline">
-                                                            <?php $opt = array_filter((array) (explode(';', trim($row['opcionais'], '; ')))) ?>
-                                                            <?php if ($opt) : ?>
-                                                                <ul class="list-style-2" style="font-size: 13px;">
-                                                                    <?php foreach ($opt as $op): ?> 
-                                                                        <li><?php echo ucwords(SmartDealer::prepareOptString($op)) ?></li>
-                                                                    <?php endforeach; ?>
-                                                                </ul>  
-                                                            <?php else: ?>
-                                                                <span>Não informados</span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
+                                <?php endforeach ?>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
-            </div>
-            <div class="stm-vc-single-car-sidebar-right wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3">
-                <div class="vc_column-inner ">
-                    <div class="wpb_wrapper">
-                        <div class="single-car-prices">
-                            <div class="single-regular-price text-center">
-                                <?php if (intval($row['preco_promocional'])): ?>
-                                    <span class="h3" style="font-size: 20px;"><strike><?php echo SmartDealer::preparePrice($row['preco'], 1, 0) ?></strike></span>
-                                    <div class="clear clearfix" style="margin-bottom: 5px;"></div>
-                                    <span class="h3"><?php echo SmartDealer::preparePrice($row['preco_promocional'], 1, 0) ?></span>
-                                <?php else: ?>
-                                    <span class="h3"><?php echo SmartDealer::preparePrice($row['preco'], 1, 0) ?></span>
-                                <?php endif; ?>
+
+                <div class="col-md-4 form-proposer">
+                    <form action="<?php echo SmartDealer::formAction(); ?>" method=post class="form-captcha" onsubmit="this.submit.disabled = true; this.submit.value = 'Enviando..';">
+                        <div class="col-sm-12">
+                            <h3 style="color: #838383">Envie uma proposta</h3>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class=form-group>
+                                <label for=InputName>Nome Completo</label>
+                                <div class=input-group>
+                                    <input type=text class=form-control name=nome id=InputName placeholder="Nome Completo" required>
+                                    <span class=input-group-addon><i class="glyphicon glyphicon-ok"></i></span></div>
                             </div>
+                            <div class=form-group>
+                                <label for=InputEmail>E-mail</label>
+                                <div class=input-group>
+                                    <input type=email class=form-control id=InputEmail name=email placeholder="E-mail" required>
+                                    <span class=input-group-addon><i class="glyphicon glyphicon-ok"></i></span></div>
+                            </div>
+                            <div class=form-group>
+                                <label for=Inputtel>Telefone</label>
+                                <div class=input-group>
+                                    <input type=text class=form-control name=telefone id=InputName placeholder="Telefone" required>
+                                    <span class=input-group-addon><i class="glyphicon glyphicon-ok"></i></span></div>
+                            </div>
+                            <div class=form-group>
+                                <label for=Inputcity>Cidade</label>
+                                <div class=input-group>
+                                    <input type=text class=form-control name=cidade id=InputName placeholder="Cidade">
+                                    <span class=input-group-addon><i class="glyphicon glyphicon-ok"></i></span></div>
+                            </div>
+                            <div class=form-group>
+                                <label for=InputMessage>Mensagem</label>
+                                <div class=input-group>
+                                    <textarea name=mensagem id=InputMessage class=form-control rows=5 required></textarea>
+                                    <span class=input-group-addon><i class="glyphicon glyphicon-ok form-control-feedback"></i></span></div>
+                            </div>
+
+                            <div class="clear clearfix"></div>
+
+                            <input type=submit name=submit id=submit value="Enviar proposta" class="btn pull-right btn-primary btn--decorated product__btn">
+                            <input type=hidden name=modal value="<?php echo SmartDealer::encodeData('novos'); ?>">
+                            <input type=hidden name=id value="<?php echo SmartDealer::encodeData($row['id']); ?>">
                         </div>
-                        <div class="stm-car_dealer-buttons heading-font">
-                            <!--a href="#trade-in" data-toggle="modal" data-target="#trade-in">
-                                Troca com troco	
-                                <i class="stm-moto-icon-trade"></i>
-                            </a>
-                            <a href="#trade-offer" data-toggle="modal" data-target="#trade-offer">
-                                Faça um preço de oferta	
-                                <i class="stm-moto-icon-cash"></i>
-                            </a-->
-                        </div>
-                        <div class="single-car-data">
-                            <table>
-                                <tr>
-                                    <td class="t-label">Condição</td>
-                                    <td class="t-value h6">Novos</td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Modelo</td>
-                                    <td class="t-value h6"><?php echo strtok($row['modelo'], ' '); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Km</td>
-                                    <td class="t-value h6">0</td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Combustível</td>
-                                    <td class="t-value h6"><?php echo SmartDealer::prepareName($row['combustivel'], false) ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Motor</td>
-                                    <td class="t-value h6"><?php echo SmartDealer::prepareName($row['motor'], false) ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Ano</td>
-                                    <td class="t-value h6">
-                                        <?php $year = explode('/', $row['ano_fab_mod']); ?>
-                                        <?php echo SmartDealer::prepareYear(next($year)); ?>   
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Transmissão</td>
-                                    <td class="t-value h6"><?php echo SmartDealer::prepareString($row['transmissao'], false) ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Portas</td>
-                                    <td class="t-value h6"><?php echo ($row['portas']) ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="t-label">Cor</td>
-                                    <td class="t-value h6"><?php echo SmartDealer::prepareName($row['cor']) ?></td>
-                                </tr>
-                                <!--VIN NUMBER-->
-                            </table>
-                        </div>
-                    </div>
+                    </form>
+                    <div class="clearfix"></div>
                 </div>
+
             </div>
         </div>
-        <div class="vc_row wpb_row vc_row-fluid vc_custom_1535736497514">
-            <div class="wpb_column vc_column_container vc_col-sm-12">
-                <div class="vc_column-inner ">
-                    <div class="wpb_wrapper">
-                        <div class="vc_row wpb_row vc_inner vc_row-fluid">
-                            <div class="wpb_column vc_column_container vc_col-sm-12">
-                                <div class="vc_column-inner ">
-                                    <div class="wpb_wrapper">
-                                        <div
-                                            class="icon-box vc_custom_1535744701418 icon_box_39626 stm-layout-box-car_dealer"
-                                            style="color:#232628">
-                                            <div class="boat-line"></div>
-                                            <div
-                                                class="icon vc_custom_1535744701416 boat-third-color"
-                                                style="font-size:27px;color:#6c98e1; ">
-                                                <i class="fa fa-paper-plane"></i>
-                                            </div>
-                                            <div class="icon-text">
-                                                <h4 class="title heading-font" style="color:#232628">
-                                                    Ficou interessado? Cadastre-se e receba uma ligação.				
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <style>
-                                            .icon_box_39626:after,
-                                            .icon_box_39626:before {
-                                                background-color: #ffffff;
-                                            }
-                                            .icon_box_39626 .icon-box-bottom-triangle {
-                                                border-right-color:rgba(255,255,255,0.9);
-                                            }
-                                            .icon_box_39626:hover .icon-box-bottom-triangle {
-                                                border-right-color:rgba(255,255,255,1);
-                                            }
-                                            .icon-box .icon-text .content a {
-                                                color: #232628;
-                                            }
-                                        </style>
-                                        <div role="form" class="wpcf7" id="wpcf7-f5283-p5657-o1" lang="en-US" dir="ltr">
-                                            <div class="screen-reader-response"></div>
-                                            <form action="<?php echo SmartDealer::formAction(); ?>#wpcf7-f5283-p5657-o1" method="post" class="wpcf7-form mailchimp-ext-0.4.50" novalidate="novalidate">
-                                                <div style="display: none;">
-                                                    <input type="hidden" name="_wpcf7" value="5283">
-                                                    <input type="hidden" name="_wpcf7_version" value="5.0.4">
-                                                    <input type="hidden" name="_wpcf7_locale" value="en_US">
-                                                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f5283-p5657-o1">
-                                                    <input type="hidden" name="_wpcf7_container_post" value="5657">
-                                                </div>
-                                                <?php if ($out): ?>
-                                                    <div class="wpcf7-response-output wpcf7-display-none" style="margin-bottom: 10px;">Sucesso! Um de nossos vendedores entrará em contato.</div>
-                                                <?php elseif ($out === false): ?>
-                                                    <div class="wpcf7-response-output wpcf7-display-none" style="margin-bottom: 10px;">Ops! Ocorreu um erro ao enviar as informações.</div>
-                                                <?php endif; ?>
-                                                <p style="display: none !important"><span class="wpcf7-form-control-wrap referer-page"><input type="hidden" name="referer-page" value="?taxonomy=condition&term=novos" class="wpcf7-form-control wpcf7-text referer-page" aria-invalid="false"></span></p>
-                                                <!-- Chimpmail extension by Renzo Johnson -->
-                                                <div class="row">
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <div class="form-group">
-                                                            <div class="form-label">Nome:</div>
-                                                            <p>         <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-label">Seu melhor e-mail:</div>
-                                                            <p>         <span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span>
-                                                            </p>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-label">Telefone / Whatsapp:</div>
-                                                            <p>         <span class="wpcf7-form-control-wrap your-tel"><input type="tel" name="your-tel" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" /></span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-label">Cidade:</div>
-                                                            <p>         <span class="wpcf7-form-control-wrap Cidade"><input type="text" name="Cidade" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span>
-                                                            </p>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-label">CPF ou CNPJ:</div>
-                                                            <p>         <span class="wpcf7-form-control-wrap cpf_cnpj"><input type="text" name="cpf_cnpj" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <input type="submit" value="Enviar" class="wpcf7-form-control wpcf7-submit" />
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    </section>
+    <div class="clearfix"></div>
+    <hr style="color: #ddd">
+    <div class="clearfix"></div>
+    <section style="padding-bottom: 20px;padding-top: 20px;">
+        <div class="container text-center">
+
+            <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12">
+
+                <h4 class="detail-title">Características</h4>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">KM</span>
+                    <span class="pull-right"><?php echo $row['km']; ?></span>
+                    <div class="clear clearfix"></div>
                 </div>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">Ano/Modelo</span>
+                    <span class="pull-right"><?php echo $year ?></span>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">Combustível</span>
+                    <span class="pull-right"><?php echo $fuel ?></span>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">Transmissão</span>
+                    <span class="pull-right"><?php echo $transmissao ?></span>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">N° de portas</span>
+                    <span class="pull-right"><?php echo $portas ?></span>
+                    <div class="clear clearfix"></div>
+                </div>
+
+                <div class="col-lg-12 line-opt">
+                    <span class="pull-left" style="font-weight: bold;">Cor</span>
+                    <span class="pull-right"><?php echo $color ?></span>
+                    <div class="clear clearfix"></div>
+                </div>
+
             </div>
+
+            <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12">
+
+                <h4 class="detail-title">Itens do Veículo</h4>
+                <?php $opt = array_filter((array) (explode(';', trim($row['opcionais'], '; ')))) ?>
+                <?php if ($opt) : ?>
+                    <ul style="list-style-type:none;">
+                        <?php foreach ($opt as $op) : ?>
+                            <li style="margin-bottom: 5px;text-align: left;"><i class="glyphicon glyphicon-chevron-right"></i>&nbsp;<?php echo ucwords(SmartDealer::prepareOptString($op)) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else : ?>
+                    <p>Não informado</p>
+                <?php endif; ?>
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-lg-4 col-sm-12">
+
+                <h3 style="color: #838383">Por apenas</h3>
+                <b class="price-label" style="font-size: 36px;"><?php echo $price; ?></b>
+                <p>Oferta com garantia de procedência</p>
+            </div>
+
         </div>
-        <div class="clearfix"></div>
-    </div>
+    </section>
 </div>
 
-
 <!-- page styles -->
-<link href="<?php echo SmartDealer::url('css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css"/>
-<link href="<?php echo SmartDealer::url('css/owl.carousel.css'); ?>" rel="stylesheet" type="text/css"/>
-<link href="<?php echo SmartDealer::url('css/owl.theme.css'); ?>" rel="stylesheet" type="text/css"/>
-<link href="<?php echo SmartDealer::url('css/ekko-lightbox.min.css'); ?>" rel="stylesheet" type="text/css"/>
-<link href="<?php echo SmartDealer::url('css/custom/itauto.css'); ?>" rel="stylesheet" type="text/css"/>
+<link href="<?php echo SmartDealer::url('css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo SmartDealer::url('css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo SmartDealer::url('css/owl.carousel.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo SmartDealer::url('css/owl.theme.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo SmartDealer::url('css/ekko-lightbox.min.css'); ?>" rel="stylesheet" type="text/css" />
 
 <!-- page scripts -->
 <script type="text/javascript" src="<?php echo SmartDealer::url('js/owl.carousel.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo SmartDealer::url('js/ekko-lightbox.min.js'); ?>"></script>
+
+<script type="text/javascript">
+    SmartDealer.setComplete(function(j) {
+
+        j("#box-images").owlCarousel({
+            autoPlay: 3000,
+            items: 4,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 3]
+        });
+
+        j(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                gallery_parent_selector: '#box-images'
+            });
+        });
+
+    });
+</script>
 
 <!-- footer -->
 <?php get_footer(); ?>

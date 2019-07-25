@@ -4,7 +4,7 @@
   Plugin Name:  Smart Dealer
   Plugin URI:   https://github.com/smartdealer/wordpress
   Description:  Plugin de integração com da plataforma Smart Dealer (c) com o Wordpress (versão 4 ou superior), listagem e detalhamento de veículos novos e usados, com registro de leads.
-  Version:      2.0.3
+  Version:      2.5.0
   Author:       Smart Dealer Software
   Author URI:   http://smartdealer.com.br
   License:      GPL2
@@ -17,7 +17,7 @@ define('MODELS_DIR', __DIR__ . DS . 'models');
 
 // load models
 if (($models = scandir(MODELS_DIR))) {
-    foreach ($models AS $file) {
+    foreach ($models as $file) {
         if (stristr($file, '.php')) {
             require_once MODELS_DIR . DS . $file;
         }
@@ -25,11 +25,11 @@ if (($models = scandir(MODELS_DIR))) {
 }
 
 // add custom routes
-add_action('init', function() {
+add_action('init', function () {
 
     global $wpdb;
 
-    if (!class_exists('SmartDealer') OR ! $wpdb) {
+    if (!class_exists('SmartDealer') or !$wpdb) {
         return false;
     }
 
@@ -76,38 +76,37 @@ add_action('init', function() {
 });
 
 // add smart dealer to WP menu
-add_action('admin_menu', function() {
+add_action('admin_menu', function () {
     (new SmartDealer())->createMenu();
 });
 
-// add custom scripts (post, page)
-add_action('wp_enqueue_scripts', function() {
+// add custom scripts (post, page, false = on head)
+add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sdplugin-bootstrap', plugins_url('assets/css/bootstrap-minimal.css', __FILE__), array(), '1.0.0', false);
-    wp_enqueue_style('sdplugin-custom', plugins_url('assets/css/custom.css', __FILE__), array(), '1.0.0', false);
-    wp_enqueue_script('sdplugin-custom', plugins_url('assets/js/custom.js', __FILE__), array(), '1.0.0', false); // false = head
-});
-
-add_action('wp_head', function() {
-    echo '<script type="text/javascript" src="' . plugins_url('assets/js/custom.js', __FILE__) . '"></script>';
+    wp_enqueue_style('sdplugin-smartdealer', plugins_url('assets/css/smartdealer.css', __FILE__), array(), '1.0.0', false);
+    wp_enqueue_style('sdplugin-jquery-ui', plugins_url('assets/css/jquery-ui.min.css', __FILE__), array(), '1.0.0', false);
+    wp_enqueue_script('sdplugin-jquery', plugins_url('assets/js/jquery.js', __FILE__), array(), '1.11.0', false);
+    wp_enqueue_script('sdplugin-bootstrap', plugins_url('assets/js/bootstrap.min.js', __FILE__), array(), '4.1.3', false);
+    wp_enqueue_script('sdplugin-jquery-ui', plugins_url('assets/js/jquery-ui.min.js', __FILE__), array(), '1.11.3', false);
+    wp_enqueue_script('sdplugin-smartdealer', plugins_url('assets/js/smartdealer.js', __FILE__), array(), '1.0.0', false);
 });
 
 // register shortcode
-add_shortcode('novos', function() {
+add_shortcode('novos', function () {
     return (new SmartDealer())->compile('novos');
 });
 
 // register shortcode
-add_shortcode('usados', function() {
+add_shortcode('usados', function () {
     return (new SmartDealer())->compile('usados');
 });
 
 // register shortcode
-add_shortcode('ofertas', function() {
+add_shortcode('ofertas', function () {
     return (new SmartDealer())->compile('ofertas', true);
 });
 
 // add seo description
-add_action('wp_head', function($a) {
+add_action('wp_head', function ($a) {
     return (new SmartDealer())->applyMetaTags($a);
 }, 1);
-

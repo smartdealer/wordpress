@@ -9,7 +9,8 @@
   Author URI: http://smartdealer.com.br
  */
 
-class SmartDealer extends stdClass {
+class SmartDealer extends stdClass
+{
 
     const CONFIG_TITLE = 'Integração com o Smart Dealer';
     const MENU_NAME = 'Smart Dealer';
@@ -87,11 +88,12 @@ class SmartDealer extends stdClass {
         )
     );
 
-    public function __construct() {
+    public function __construct()
+    {
 
-         // set path
-        $this->ws_path = (stristr(get_option('smartdealer_instancia'), '://')) ? get_option('smartdealer_instancia') : 'https://' . str_replace(array('.smartdealer.app','.smartdealer.com.br'),'',get_option('smartdealer_instancia')) . '.smartdealer.app/webservice/core.php?wsdl';
-        
+        // set path
+        $this->ws_path = (stristr(get_option('smartdealer_instancia'), '://')) ? get_option('smartdealer_instancia') : 'https://' . str_replace(array('.smartdealer.app', '.smartdealer.com.br'), '', get_option('smartdealer_instancia')) . '.smartdealer.app/webservice/core.php?wsdl';
+
         // debug mode (for local tests)
         if (self::DEBUG_MODE) {
             $this->ws_path = 'http://localhost/smartdealer/webservice/core.php?wsdl';
@@ -113,7 +115,8 @@ class SmartDealer extends stdClass {
         $this->meta = (!empty($_SESSION['smartdealer_meta'])) ? $_SESSION['smartdealer_meta'] : array();
     }
 
-    private function save() {
+    private function save()
+    {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -122,7 +125,8 @@ class SmartDealer extends stdClass {
         $_SESSION['smartdealer_instancia'] = get_option('smartdealer_instancia');
     }
 
-    public function addRoutes() {
+    public function addRoutes()
+    {
         global $wp_rewrite;
 
         $wp_rewrite->add_external_rule('^novo/([^/]+)/([^/]+)/?', 'wp-content/plugins/smartdealer/' . self::getTemplate() . '/novo.php?id=$matches[2]');
@@ -131,33 +135,39 @@ class SmartDealer extends stdClass {
         $wp_rewrite->flush_rules(true);
     }
 
-    public function flush() {
+    public function flush()
+    {
         global $wp_rewrite;
         $wp_rewrite->flush_rules();
     }
 
-    public function addParams($query_vars) {
+    public function addParams($query_vars)
+    {
         $query_vars[] = 'veiculo';
         return $query_vars;
     }
 
-    public function enable() {
+    public function enable()
+    {
         update_option('smartdealer_instancia', '');
         update_option('smartdealer_usuario', '');
         update_option('smartdealer_senha', '');
     }
 
-    public function disable() {
+    public function disable()
+    {
         delete_option('smartdealer_instancia');
         delete_option('smartdealer_usuario');
         delete_option('smartdealer_senha');
     }
 
-    public function createMenu() {
+    public function createMenu()
+    {
         add_menu_page(self::CONFIG_TITLE, self::MENU_NAME, 10, 'smartdealer/smartdealer-config.php', null, plugins_url() . '/smartdealer/assets/img/favicon.ico');
     }
 
-    static function the_slug() {
+    static function the_slug()
+    {
         self::$slug = basename(get_permalink());
         do_action('before_slug', self::$slug);
         self::$slug = apply_filters('slug_filter', self::$slug);
@@ -165,66 +175,80 @@ class SmartDealer extends stdClass {
         return self::$slug;
     }
 
-    static function the_id() {
+    static function the_id()
+    {
         $a = urldecode(self::uri(-1));
         $c = base64_decode($a);
         return ($a === base64_encode($c)) ? $c : null;
     }
 
-    static function encodeData($a) {
+    static function encodeData($a)
+    {
         return base64_encode($a);
     }
 
-    static function decodeData($a) {
+    static function decodeData($a)
+    {
         return base64_decode($a);
     }
 
-    static function link($a, $b = null) {
+    static function link($a, $b = null)
+    {
         $b = preg_replace('/\s+/', '-', self::prepareString($b));
         return site_url() . '/' . self::$link_modal . (($b) ? '/' . $b : '') . '/' . urlencode(base64_encode($a));
     }
 
-    public function isIncluded($fileName) {
+    public function isIncluded($fileName)
+    {
         return in_array(__DIR__ . DS . '..' . DS . 'template' . DS . self::getTemplate() . DS . $fileName, get_included_files());
     }
 
-    public static function formAction() {
+    public static function formAction()
+    {
         return current(explode('?', getenv('REQUEST_URI')));
     }
 
-    public function pathPlugin() {
+    public function pathPlugin()
+    {
         return substr(strrchr(dirname(__FILE__), DIRECTORY_SEPARATOR), 1) . DIRECTORY_SEPARATOR . basename(__FILE__);
     }
 
-    public function realPathPlugin($a = null) {
+    public function realPathPlugin($a = null)
+    {
         return dirname(__FILE__) . DS . '..' . DS . (($a) ? $a : '');
     }
 
-    public function uri($i = null) {
+    public function uri($i = null)
+    {
         $uri = trim(str_replace(preg_replace('/https?:\/\//i', '', get_site_url()), '', getenv('HTTP_HOST') . getenv('REQUEST_URI')), '/ ');
-        $uri_params = array_filter(array_map(function($a) {
-                    return strtok($a, '?');
-                }, ((array) (explode(US, $uri)))));
+        $uri_params = array_filter(array_map(function ($a) {
+            return strtok($a, '?');
+        }, ((array) (explode(US, $uri)))));
         return (!empty($uri_params[$i])) ? $uri_params[$i] : (($i == -1 && $uri_params && is_array($uri_params)) ? end($uri_params) : $uri);
     }
 
-    public static function url($a) {
+    public static function url($a)
+    {
         return plugins_url() . US . 'smartdealer' . US . 'assets' . US . trim($a, '/ ');
     }
 
-    public static function urlPlugin($a = null) {
+    public static function urlPlugin($a = null)
+    {
         return plugins_url() . US . 'smartdealer' . US . (($a) ? trim($a, '/ ') : '');
     }
 
-    public static function urlBase($a = null) {
+    public static function urlBase($a = null)
+    {
         return trim(\get_site_url(), '/ ') . US . (($a) ? $a . US : '');
     }
 
-    public static function formGet($a, $b = null) {
+    public static function formGet($a, $b = null)
+    {
         return ($c = filter_input(INPUT_GET, $a, FILTER_SANITIZE_STRING)) ? $c : $b;
     }
 
-    public function connect() {
+    public function connect()
+    {
 
         // fix WSDL endopoint
         $this->ws_path = strtolower($this->ws_path);
@@ -264,7 +288,8 @@ class SmartDealer extends stdClass {
         return (bool) (!$this->logError());
     }
 
-    public function logError($a = null) {
+    public function logError($a = null)
+    {
         if ($a) {
             $this->log[] = $a;
         } else {
@@ -272,30 +297,32 @@ class SmartDealer extends stdClass {
         }
     }
 
-    static public function show_404() {
+    static public function show_404()
+    {
         status_header(404);
         include(get_query_template('404'));
         exit(0);
     }
 
-    public function getData() {
+    public function getData()
+    {
 
         // set params
         $prm = array('parametrospage' => array(
-                'pp' => self::formGet('pp', 1),
-                'qtd_por_pp' => self::PAGER_TOTAL_ROWS,
-                'marca' => self::formGet('marca', ''),
-                'familia' => self::formGet('familia', ''),
-                'modelo' => self::formGet('modelo', ''),
-                'cor' => self::formGet('cor', ''),
-                'combustivel' => self::formGet('combustivel', ''),
-                'ano_min' => (int) self::formGet('ano_min', 0),
-                'ano_max' => (int) self::formGet('ano_max', 0),
-                'preco_min' => (int) self::formGet('preco_min', 0),
-                'preco_max' => (int) self::formGet('preco_max', 0),
-                'campo_ordenador' => self::formGet('campo_ordenador', ''),
-                'sentido_ordenacao' => self::formGet('sentido_ordenacao', ''),
-                'query' => self::formGet('busca', '')
+            'pp' => self::formGet('pp', 1),
+            'qtd_por_pp' => self::PAGER_TOTAL_ROWS,
+            'marca' => self::formGet('marca', ''),
+            'familia' => self::formGet('familia', ''),
+            'modelo' => self::formGet('modelo', ''),
+            'cor' => self::formGet('cor', ''),
+            'combustivel' => self::formGet('combustivel', ''),
+            'ano_min' => (int) self::formGet('ano_min', 0),
+            'ano_max' => (int) self::formGet('ano_max', 0),
+            'preco_min' => (int) self::formGet('preco_min', 0),
+            'preco_max' => (int) self::formGet('preco_max', 0),
+            'campo_ordenador' => self::formGet('campo_ordenador', ''),
+            'sentido_ordenacao' => self::formGet('sentido_ordenacao', ''),
+            'query' => self::formGet('busca_smart', '')
         ));
 
         $prm['parametrospage'] = array_filter($prm['parametrospage']);
@@ -307,7 +334,8 @@ class SmartDealer extends stdClass {
         return $this->data;
     }
 
-    public function getRow() {
+    public function getRow()
+    {
 
         $id = self::the_id();
 
@@ -330,11 +358,12 @@ class SmartDealer extends stdClass {
         return $this->data;
     }
 
-    public function getMarks() {
+    public function getMarks()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -352,11 +381,12 @@ class SmartDealer extends stdClass {
         return ($this->marks && !$this->ws->getError()) ? $this->marks : array();
     }
 
-    public function getModels() {
+    public function getModels()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -374,11 +404,12 @@ class SmartDealer extends stdClass {
         return ($this->models && !$this->ws->getError()) ? $this->models : array();
     }
 
-    public function getFamilies() {
+    public function getFamilies()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -400,11 +431,12 @@ class SmartDealer extends stdClass {
         return ($this->families && !$this->ws->getError()) ? $this->families : array();
     }
 
-    public function getColors() {
+    public function getColors()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -422,11 +454,12 @@ class SmartDealer extends stdClass {
         return ($this->colors && !$this->ws->getError()) ? $this->colors : array();
     }
 
-    public function getFuels() {
+    public function getFuels()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -444,11 +477,12 @@ class SmartDealer extends stdClass {
         return ($this->fuels && !$this->ws->getError()) ? $this->fuels : array();
     }
 
-    public function getGears() {
+    public function getGears()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -466,11 +500,12 @@ class SmartDealer extends stdClass {
         return ($this->colors && !$this->ws->getError()) ? $this->colors : array();
     }
 
-    public function getTotals() {
+    public function getTotals()
+    {
 
         // se params
         $prm = array('parametrosbusca' => array(
-                'modo' => $this->ws_modal
+            'modo' => $this->ws_modal
         ));
 
         if (self::formGet('estoque', '')) {
@@ -488,13 +523,14 @@ class SmartDealer extends stdClass {
         return ($this->totals && !$this->ws->getError()) ? $this->totals : array();
     }
 
-    public function getOffers($type = null, $limit = null, $filter = false) {
+    public function getOffers($type = null, $limit = null, $filter = false)
+    {
 
         self::$link_modal = $type;
 
         // se params
         $prm = array('parametrospage' => array(
-                'modal' => ($type) ? $type : $this->ws_modal
+            'modal' => ($type) ? $type : $this->ws_modal
         ));
 
         $prm['parametrospage']['reg_max'] = ($limit) ? $limit : self::PAGER_TOTAL_PAGES;
@@ -516,7 +552,8 @@ class SmartDealer extends stdClass {
         return ($this->ofertas && !$this->ws->getError()) ? $this->ofertas : array();
     }
 
-    public function addLead($keys, $ignore = array(), &$ret) {
+    public function addLead($keys, $ignore = array(), &$ret)
+    {
 
         // valid method
         if (stristr($_SERVER['REQUEST_METHOD'], 'POST')) {
@@ -525,9 +562,9 @@ class SmartDealer extends stdClass {
             $keys = array_diff_key($keys, array_flip((array) $ignore));
 
             // filter input
-            $in = ($in = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING)) ? array_map(function($a) {
-                        return (is_array($a)) ? null : str_replace('\r\n', '', nl2br(trim(strip_tags(addslashes($a)))));
-                    }, array_intersect_key($in, array_flip($keys))) : array();
+            $in = ($in = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING)) ? array_map(function ($a) {
+                return (is_array($a)) ? null : str_replace('\r\n', '', nl2br(trim(strip_tags(addslashes($a)))));
+            }, array_intersect_key($in, array_flip($keys))) : array();
 
             // valid fields
             $valid = ($keys && count($keys) === count($in));
@@ -539,13 +576,13 @@ class SmartDealer extends stdClass {
 
             // se params
             $prm = array('mensagem' => array(
-                    'carro_id' => self::decodeData($in['id']),
-                    'nome' => $in['nome'],
-                    'e_mail' => $in['email'],
-                    'telefone' => $in['telefone'],
-                    'mensagem' => $in['cidade'] . '/' . $in['estado'] . ' ' . $in['mensagem'],
-                    'modal' => $this->ws_modal,
-                    'origem' => 'site'
+                'carro_id' => self::decodeData($in['id']),
+                'nome' => $in['nome'],
+                'e_mail' => $in['email'],
+                'telefone' => $in['telefone'],
+                'mensagem' => $in['cidade'] . '/' . $in['estado'] . ' ' . $in['mensagem'],
+                'modal' => $this->ws_modal,
+                'origem' => 'site'
             ));
 
             // call ws
@@ -556,7 +593,8 @@ class SmartDealer extends stdClass {
         }
     }
 
-    static public function prepareName($str, $filter = true) {
+    static public function prepareName($str, $filter = true)
+    {
 
         $pat = array('/\&[A-Z]+\;/i', '/[^A-Za-z0-9\-\. ]\s/');
 
@@ -569,7 +607,8 @@ class SmartDealer extends stdClass {
         return trim(ucwords(preg_replace($pat, ' ', html_entity_decode($str))));
     }
 
-    static public function prepareString($str, $lower = true) {
+    static public function prepareString($str, $lower = true)
+    {
 
         // check encode
         $str = self::prepareCharset($str);
@@ -613,7 +652,8 @@ class SmartDealer extends stdClass {
      * @access  public
      * @copyright (c) 2016, System Support Tools
      */
-    static public function prepareCharset($str) {
+    static public function prepareCharset($str)
+    {
 
         $o = $str;
 
@@ -645,11 +685,13 @@ class SmartDealer extends stdClass {
         return trim($str);
     }
 
-    static public function prepareFuel($a) {
+    static public function prepareFuel($a)
+    {
         return preg_match('/(gas([a-z]+)?|alc([a-z]+)?|etan([a-z]+)?).*(gas([a-z]+)?|alc([a-z]+)?|etan([a-z]+)?)/i', $a) ? 'Flex' : ucfirst(strtolower($a));
     }
 
-    public static function array_column($array, $column, $key = null, $pkey = false) {
+    public static function array_column($array, $column, $key = null, $pkey = false)
+    {
         // init vars
         $newArray = array();
         $keyArray = array();
@@ -669,37 +711,41 @@ class SmartDealer extends stdClass {
         }
 
         // add keys
-        if (($keyArray && $key and ( !is_array($key) && !is_object($key)) or $pkey) && count($keyArray) === count($newArray))
+        if (($keyArray && $key and (!is_array($key) && !is_object($key)) or $pkey) && count($keyArray) === count($newArray))
             $newArray = array_combine((array) $keyArray, (array) $newArray);
 
         // return
         return $newArray;
     }
 
-    public static function img($a, $m, $c, $w = 500, $s = 1, $u = 0, $prm = '') {
+    public static function img($a, $m, $c, $w = 500, $s = 1, $u = 0, $prm = '')
+    {
 
         // detect and cache owner
         self::$img_owner = (self::$img_owner) ? self::$img_owner : ((($r = parse_url(get_option('sds_instancia'))) && !empty($r['host'])) ? strtok($r['host'], '.') : ((isset($r['path'])) ? $r['path'] : $r));
 
         // return
-        return self::urlPlugin('includes/getimage' . US . (($u) ? $a . US . self::$img_owner . US . $w . US . $s : urlencode($m) . US . urlencode($c) . US . self::$img_owner . US . $w . US . $s ) . self::IMG_EXT . (($prm) ? '?' . trim(((is_string($prm)) ? $prm : http_build_query($prm)), '?\//& ') : ''));
+        return self::urlPlugin('includes/getimage' . US . (($u) ? $a . US . self::$img_owner . US . $w . US . $s : urlencode($m) . US . urlencode($c) . US . self::$img_owner . US . $w . US . $s) . self::IMG_EXT . (($prm) ? '?' . trim(((is_string($prm)) ? $prm : http_build_query($prm)), '?\//& ') : ''));
     }
 
-    static public function prepareYear($year = 0, $used = true) {
+    static public function prepareYear($year = 0, $used = true)
+    {
 
         // year tratament and validation
         $year = ($year === 00) ? substr(date('Y'), 0, 1) . '000' : ((empty($year)) ? date('Y') : $year);
 
         // return yeaer wicth four digits
-        return (int) (strlen($year) <= 2) ? (($year > (date('y') + 2) and ( $year <= 99) and $used) ? $year + 1900 : $year + ((int) substr(date('Y'), 0, 2) . "00")) : $year;
+        return (int) (strlen($year) <= 2) ? (($year > (date('y') + 2) and ($year <= 99) and $used) ? $year + 1900 : $year + ((int) substr(date('Y'), 0, 2) . "00")) : $year;
     }
 
-    static public function preparePrice($a, $b = 0, $c = 2) {
+    static public function preparePrice($a, $b = 0, $c = 2)
+    {
         // prepare float number 
         return (((int) str_replace(',', '', $a)) < 10) ? 'Sob Consulta' : ((($b) ? 'R$ ' : '') . number_format($a, $c, ',', '.'));
     }
 
-    public function getPager($data) {
+    public function getPager($data)
+    {
 
         // valid data
         $a = (!empty($data) && is_array($data) && array_key_exists(0, $data)) ? current($data) : array();
@@ -720,7 +766,7 @@ class SmartDealer extends stdClass {
         $pager = array();
 
         // fill next shortcuts
-        if ($page != 1):
+        if ($page != 1) :
             $pager[] = array(
                 'link' => $link . 'pp=1',
                 'text' => 'Primeira',
@@ -736,7 +782,7 @@ class SmartDealer extends stdClass {
         endif;
 
         // add middle pages
-        for ($k = 1; $k <= $pages; ++$k):
+        for ($k = 1; $k <= $pages; ++$k) :
 
             // match state
             $active = ($k == $page) ? 1 : 0;
@@ -755,7 +801,7 @@ class SmartDealer extends stdClass {
         endfor;
 
         // add end shotcuts
-        if ($pages > $page):
+        if ($pages > $page) :
             $pager[] = array(
                 'link' => $link . 'pp=' . ($page + 1),
                 'text' => '&raquo;',
@@ -775,11 +821,13 @@ class SmartDealer extends stdClass {
         return $pager;
     }
 
-    public static function getURL() {
+    public static function getURL()
+    {
         return implode('', array('http://', $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']));
     }
 
-    static public function prepareText($str, $strip = 0) {
+    static public function prepareText($str, $strip = 0)
+    {
 
         $str = self::prepareCharset($str);
 
@@ -787,7 +835,8 @@ class SmartDealer extends stdClass {
         return trim(html_entity_decode($str));
     }
 
-    public static function prepareOptString($str) {
+    public static function prepareOptString($str)
+    {
 
         // trataments, format string
         $str = self::prepareString(html_entity_decode($str));
@@ -806,11 +855,13 @@ class SmartDealer extends stdClass {
         return trim($str, '; ');
     }
 
-    static public function getSocial() {
+    static public function getSocial()
+    {
         return get_option('sds_instancia');
     }
 
-    public function setModal($a) {
+    public function setModal($a)
+    {
         if (($b = in_array($a, array('novos', 'usados', 'novo', 'usado')))) {
             $this->ws_modal = $a;
 
@@ -823,15 +874,16 @@ class SmartDealer extends stdClass {
     }
 
     // the compile
-    function compile($a, $subpages = false) {
+    function compile($a, $subpages = false)
+    {
 
         global $wpdb;
 
         $api = $this;
         if ($this->connect()) {
-            foreach ($this->schema AS $k => $b) {
+            foreach ($this->schema as $k => $b) {
 
-                if (($a === $k) && !$this->isIncluded($b['include']) && (($subpages && $b['uri'] === false) OR ( !$subpages && !empty($b['uri'])))) {
+                if (($a === $k) && !$this->isIncluded($b['include']) && (($subpages && $b['uri'] === false) or (!$subpages && !empty($b['uri'])))) {
 
                     // create scope
                     ob_start(null, 0);
@@ -867,7 +919,8 @@ class SmartDealer extends stdClass {
         }
     }
 
-    private function getCache($key) {
+    private function getCache($key)
+    {
 
         // cache vars
         $cache_dir = $this->realPathPlugin('cache');
@@ -880,7 +933,8 @@ class SmartDealer extends stdClass {
         }
     }
 
-    private function setCache($key, Array $data) {
+    private function setCache($key, array $data)
+    {
 
         // cache vars
         $cache_dir = $this->realPathPlugin('cache');
@@ -895,7 +949,8 @@ class SmartDealer extends stdClass {
         fclose($a);
     }
 
-    public function resetCache() {
+    public function resetCache()
+    {
 
         $r = 0;
 
@@ -932,7 +987,8 @@ class SmartDealer extends stdClass {
         return true;
     }
 
-    private function call($a, Array $b = array()) {
+    private function call($a, array $b = array())
+    {
 
         // set request signature key
         $key = $a . '.' . sha1(json_encode((array) ($b)));
@@ -948,6 +1004,8 @@ class SmartDealer extends stdClass {
         // debug (log error)
         $this->logError($this->ws->getError());
 
+        ob_end_clean();
+
         // debug mode
         if ($this->ws->getError() && self::DEBUG_MODE) {
             ob_clean();
@@ -961,11 +1019,13 @@ class SmartDealer extends stdClass {
         return ($r) ? $r : array();
     }
 
-    public function debug() {
+    public function debug()
+    {
         return $this->ws->response;
     }
 
-    public function templates() {
+    public function templates()
+    {
 
         // default
         $a = array();
@@ -987,7 +1047,8 @@ class SmartDealer extends stdClass {
         return $a;
     }
 
-    public function getLinkFlag($a) {
+    public function getLinkFlag($a)
+    {
 
         global $wpdb;
 
@@ -998,7 +1059,8 @@ class SmartDealer extends stdClass {
         return (!empty($b->slug)) ? site_url($b->slug) : '#';
     }
 
-    public function setMetaTags($a, $b = '', $c = '') {
+    public function setMetaTags($a, $b = '', $c = '')
+    {
         $_SESSION['smartdealer_meta'] = array(
             '<title>' . $a . '</title>',
             '<meta name="keywords" content="' . $c . '">',
@@ -1006,15 +1068,18 @@ class SmartDealer extends stdClass {
         );
     }
 
-    public function applyMetaTags() {
+    public function applyMetaTags()
+    {
         echo implode("\n", $this->meta);
     }
 
-    public static function getTemplate() {
+    public static function getTemplate()
+    {
         return self::$template;
     }
 
-    static public function prepareKeyWords($str) {
+    static public function prepareKeyWords($str)
+    {
 
         if (is_array($str)) {
             $str = implode(' ', $str);
@@ -1030,5 +1095,4 @@ class SmartDealer extends stdClass {
         // prepare string
         return implode(',', array_filter(explode(' ', preg_replace(array_keys($pattern), array_values($pattern), self::prepareString($str)))));
     }
-
 }

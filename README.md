@@ -1,10 +1,11 @@
 # Plugin Smart Dealer para Wordpress 2.0.3
-Coloque seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
+
+Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
 ### Instalação
 
-1. Instale e ative o plugin
-2. Configure o usuário de integração (Disponível em Connect > Usuário do Webservice no Smart Dealer)
+1. Faça download do instalador, instale e ative o plugin
+2. Configure o usuário de integração (Disponível no Smart Dealer, em Connect -> Usuário do Webservice)
 3. Crie as páginas no Wordpress
 4. Adicione as flags de conteúdo
 5. Configure no plugin as páginas de destino (página da oferta/detalhes do veículo)

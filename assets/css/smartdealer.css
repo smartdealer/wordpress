@@ -1,0 +1,389 @@
+/* 
+    Created on : 10/03/2017, 17:39:48
+    Author     : Patrick Otto
+    Author     : Jean Carlos dos Santos
+*/
+
+.sd-scope br:empty,
+.sd-scope p:empty {
+  display: none;
+}
+
+.entry .entry-content,
+.entry .entry-summary {
+  max-width: 100% !important;
+  margin: 0px !important;
+  padding: 0 15px !important;
+}
+
+.m-b-10 {
+  margin-bottom: 5px;
+  clear: both;
+}
+
+.sd-scope {
+  margin-bottom: 15px;
+  max-width: 100% !important;
+}
+
+.sd-scope .no-padding {
+  padding: 0 !important;
+}
+
+.sd-scope .no-margin {
+  margin: 0 !important;
+}
+
+/* Páginas: Novos,Usados  */
+
+.sd-scope h3,
+.sd-scope .h3,
+.sd-scope h4,
+.sd-scope .h4 {
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+
+.sd-scope .h3 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.sd-scope .h4 {
+  font-size: 18px;
+}
+
+.sd-scope a {
+  text-decoration: none !important;
+}
+
+.sd-scope a:hover,
+.sd-scope a:focus {
+  text-decoration: none;
+}
+
+.sd-scope a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.sd-scope img {
+  vertical-align: middle;
+}
+
+.sd-scope .img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.sd-scope .container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.sd-scope .form-register {
+  width: 100%;
+  padding: 10px;
+  background: #efefef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding-bottom: 25px;
+}
+
+.sd-scope .input-label {
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #000;
+  font-size: 16px;
+  clear: both;
+  width: 100%;
+}
+
+.sd-scope .input-filter {
+  padding: 5px;
+}
+
+.sd-scope .input-filter select {
+  margin: 0px;
+  width: 100%;
+  margin-top: 0px;
+  /*height: 32px;
+    padding: 0 15px 3px;*/
+  font-size: 12px;
+  font-style: normal;
+  /*color: #cdcdcd;
+    background-color: #fff;
+    border: 1px solid #dedede;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;*/
+}
+
+.sd-scope .form-control label {
+  margin-bottom: 10px;
+}
+
+.sd-scope .form_register .form-control {
+  height: 46px;
+  margin-bottom: 20px;
+  border: 1px solid #efefef;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.sd-scope .range-slider-gp .ui-state-default,
+.sd-scope .range-slider-gp .ui-widget-content .ui-state-default,
+.sd-scope .range-slider-gp .ui-widget-header .ui-state-default {
+  border: 1px solid #555;
+  background: #ccc;
+  font-weight: normal;
+  color: #f3f7f7;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.sd-scope .range {
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.sd-scope .range.left {
+  float: left;
+  text-align: left;
+}
+
+.sd-scope .range.right {
+  float: right;
+  text-align: right;
+}
+
+.sd-scope #range-min:after {
+  content: "";
+}
+
+.sd-scope .btn-primary {
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+}
+
+.sd-scope .btn-primary:hover,
+.sd-scope .btn-primary:focus,
+.sd-scope .btn-primary:active,
+.sd-scope .btn-primary.active,
+.sd-scope .open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #555;
+  border-color: #555;
+}
+
+.sd-scope .btn-primary:active,
+.sd-scope .btn-primary.active,
+.sd-scope .open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+.sd-scope .btn-primary.disabled,
+.sd-scope .btn-primary[disabled],
+.sd-scope fieldset[disabled] .btn-primary,
+.sd-scope .btn-primary.disabled:hover,
+.sd-scope .btn-primary[disabled]:hover,
+.sd-scope fieldset[disabled] .btn-primary:hover,
+.sd-scope .btn-primary.disabled:focus,
+.sd-scope .btn-primary[disabled]:focus,
+.sd-scope fieldset[disabled] .btn-primary:focus,
+.sd-scope .btn-primary.disabled:active,
+.sd-scope .btn-primary[disabled]:active,
+.sd-scope fieldset[disabled] .btn-primary:active,
+.sd-scope .btn-primary.disabled.active,
+.sd-scope .btn-primary[disabled].active,
+.sd-scope fieldset[disabled] .btn-primary.active {
+  background-color: #000;
+  border-color: #000;
+}
+
+.sd-scope .btn-primary .badge {
+  color: #000;
+  background-color: #fff;
+}
+
+.sd-scope .select-order {
+  padding-left: 5px;
+  margin: 0px;
+  margin-right: 5px;
+  display: relative;
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
+  vertical-align: middle;
+  background-image: none;
+  border: 1px solid #ddd;
+  background: #efefef;
+  border-radius: 1px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.sd-scope .row-item {
+  padding: 5px;
+}
+
+.sd-scope #gallery .item {
+  padding: 5px;
+  background: white;
+  margin: 0px;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+
+.sd-scope #gallery .item h3 {
+  padding-top: 5px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  height: auto;
+  overflow: hidden;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+  height: 38px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.sd-scope #gallery .item h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sd-scope .price-label {
+  font-weight: bolder;
+  font-size: 20px;
+  color: #000;
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  text-align: center;
+}
+
+.sd-scope #gallery .item .button-container {
+  padding-top: 15px;
+}
+
+.sd-scope #gallery .item .item-image {
+  height: 200px;
+  position: relative;
+  clear: both;
+  text-align: center;
+}
+
+.sd-scope #gallery .item .item-image img {
+  max-height: 200px;
+  margin: 0 auto;
+}
+
+.sd-scope .pagination > .active > a,
+.sd-scope .pagination > .active > span,
+.sd-scope .pagination > .active > a:hover,
+.sd-scope .pagination > .active > span:hover,
+.sd-scope .pagination > .active > a:focus,
+.sd-scope .pagination > .active > span:focus {
+  color: #fff;
+  background-color: #000;
+  border-color: #ccc;
+}
+
+.sd-scope .pagination > li > a,
+.sd-scope .pagination > li > span {
+  font-style: normal;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.sd-scope .pagination > li > a:hover {
+  color: #000;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+.sd-scope #gallery .item:hover {
+  border: 1px solid #bbb;
+}
+
+/* Páginas: Novo,Usado  */
+
+.sd-scope .item-img {
+  max-height: 210px;
+  max-width: 285px;
+  overflow: hidden;
+}
+
+.sd-scope .form-proposer {
+  background: #efefef;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+
+.sd-scope .btn--decorated {
+  position: relative;
+  z-index: 20;
+  padding: 11px 35px 12px;
+}
+
+.sd-scope .line-opt {
+  border-bottom: 1px solid #cccccc;
+  padding-left: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.sd-scope #box-images {
+  margin-top: 5px;
+}
+
+
+.sd-scope #box-images .item {
+  overflow: hidden;
+  height: 145px;
+  padding: 2px;
+}
+
+
+.sd-scope #box-images .item .item-img {
+  border: 1px solid #eee;
+  padding: 3px;
+  background: #fcfcfc;
+}
+
+
+.sd-scope #box-images .item img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
