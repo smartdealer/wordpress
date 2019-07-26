@@ -3,8 +3,8 @@
 /*
   Plugin Name: Smart Dealer
   Plugin URI: http://smartdealership.com.br/api.html
-  Description: Plugin de integração com o Smart Dealer (compatível com wordpress 3 ou superior) - 2017-2018
-  Version: 1.1
+  Description: Plugin de integração com o Smart Dealer (compatível com wordpress 3 ou superior) - 2017-2019
+  Version: 2.0.5
   Author: Patrick Otto <patrick@smartdealership.com.br>, Jean Carlos dos Santos <jean@smartdealership.com.br>
   Author URI: http://smartdealer.com.br
  */
@@ -32,7 +32,7 @@ class SmartDealer extends stdClass
     /**
      * Protected 
      */
-    protected $ws, $ws_path, $ws_method, $ws_modal, $instance, $data = array(), $log = array(), $meta = array();
+    protected $ws, $ws_path, $ws_method, $ws_modal, $instance, $data = array(), $log = array(), $meta = array(), $in_use = array();
 
     /**
      * WS request schema 
@@ -878,15 +878,18 @@ class SmartDealer extends stdClass
     {
 
         global $wpdb;
-
         $api = $this;
-        if ($this->connect()) {
+  
+        if (!is_admin() && $this->connect()) {
             foreach ($this->schema as $k => $b) {
 
-                if (($a === $k) && !$this->isIncluded($b['include']) && (($subpages && $b['uri'] === false) or (!$subpages && !empty($b['uri'])))) {
+                if (!in_array($k, $this->in_use) && ($a === $k) && !$this->isIncluded($b['include']) && (($subpages && $b['uri'] === false) or (!$subpages && !empty($b['uri'])))) {
 
                     // create scope
-                    ob_start(null, 0);
+                    ob_start(null, null);
+
+                    // save use
+                    $this->in_use[] = $k;
 
                     // set modal (type)
                     $this->ws_modal = $b['modal'];
@@ -905,13 +908,16 @@ class SmartDealer extends stdClass
                     }
 
                     // collect data
-                    $c = ob_get_clean();
+                    $c = ob_get_contents();
+
+                    // reset
+                    ob_clean();
 
                     // kill
                     break;
                 }
             }
-
+            
             // return
             return (!empty($c)) ? $c : '';
         } else {

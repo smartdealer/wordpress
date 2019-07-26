@@ -6,7 +6,7 @@
  * @package   Smart Dealer Wordpress Plugin
  * @author    Patrick Otto <patrick@smartdealership.com.br>
  * @author    Jean Carlos dos Santos <jean@smartdealership.com.br>
- * @version   2.5.0
+ * @version   2.0.5
  * @access    public
  * @copyright Smart Dealer(c), 2017-2019
  * @see       http://smartdealer.com.br
@@ -51,7 +51,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                         </div>
                         <div class="col-sm-12 input-filter">
                             <div class="form-group">
-                                <select name="marca" class="form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                <select name="marca" class="form-control">
                                     <option value="" selected="selected">Marca</option>
                                     <?php $a = $this->getMarks(); ?>
                                     <?php foreach ($a as $row) : ?>

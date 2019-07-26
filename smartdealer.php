@@ -4,7 +4,7 @@
   Plugin Name:  Smart Dealer
   Plugin URI:   https://github.com/smartdealer/wordpress
   Description:  Plugin de integração com da plataforma Smart Dealer (c) com o Wordpress (versão 4 ou superior), listagem e detalhamento de veículos novos e usados, com registro de leads.
-  Version:      2.5.0
+  Version:      2.0.5
   Author:       Smart Dealer Software
   Author URI:   http://smartdealer.com.br
   License:      GPL2
@@ -110,3 +110,5 @@ add_shortcode('ofertas', function () {
 add_action('wp_head', function ($a) {
     return (new SmartDealer())->applyMetaTags($a);
 }, 1);
+
+show_admin_bar(false);

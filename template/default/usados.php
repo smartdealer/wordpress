@@ -6,7 +6,7 @@
  * @package   Smart Dealer Wordpress Plugin
  * @author    Patrick Otto <patrick@smartdealership.com.br>
  * @author    Jean Carlos dos Santos <jean@smartdealership.com.br>
- * @version   2.5.0
+ * @version   2.0.5
  * @access    public
  * @copyright Smart Dealer(c), 2017-2019
  * @see       http://smartdealer.com.br
@@ -19,6 +19,7 @@ $pr_min = (int) ($valid) ? min(\SmartDealer::array_column((array) $totais, 'prec
 $pr_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'preco_max')) : 0;
 $ye_min = (int) ($valid) ? min(\SmartDealer::array_column((array) $totais, 'ano_min')) : date('Y');
 $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_max')) : date('Y');
+
 ?>
 
 <div class="sd-scope row">
@@ -42,7 +43,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                         <div class="clearfix"></div>
                         <div class="col-sm-12 input-filter">
                             <div class="form-group">
-                                <input type="text" name="busca_smart" class="form-control" placeholder="Digite o que procura..." value="<?php echo SmartDealer::formGet('busca_smart', ''); ?>" aria-label="Digite o que procura..." style="width:80%;display:inline;"/>
+                                <input type="text" name="busca_smart" class="form-control" placeholder="Digite o que procura..." value="<?php echo SmartDealer::formGet('busca_smart', ''); ?>" aria-label="Digite o que procura..." style="width:80%;display:inline;" />
                                 <button class="btn btn-primary pull-right" type="submit" style="display: table-cell;"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
@@ -52,7 +53,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                         </div>
                         <div class="col-sm-12 input-filter">
                             <div class="form-group">
-                                <select name="marca" class="form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                <select name="marca" class="form-control">
                                     <option value="" selected="selected">Marca</option>
                                     <?php $a = $this->getMarks(); ?>
                                     <?php foreach ($a as $row) : ?>
