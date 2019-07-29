@@ -885,6 +885,9 @@ class SmartDealer extends stdClass
 
                 if (!in_array($k, $this->in_use) && ($a === $k) && !$this->isIncluded($b['include']) && (($subpages && $b['uri'] === false) or (!$subpages && !empty($b['uri'])))) {
 
+                    // hide admin bar
+                    show_admin_bar(false);
+
                     // create scope
                     ob_start(null, null);
 

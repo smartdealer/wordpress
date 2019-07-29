@@ -110,5 +110,3 @@ add_shortcode('ofertas', function () {
 add_action('wp_head', function ($a) {
     return (new SmartDealer())->applyMetaTags($a);
 }, 1);
-
-show_admin_bar(false);
