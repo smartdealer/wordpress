@@ -41,7 +41,7 @@ $ye_max = (int) ($valid) ? max(\SmartDealer::array_column((array) $totais, 'ano_
                         <div class="clearfix"></div>
                         <div class="col-sm-12 input-filter">
                             <div class="form-group">
-                                <input type="text" name="busca_smart" class="form-control" placeholder="Digite o que procura..." value="<?php echo SmartDealer::formGet('busca_smart'); ?>" aria-label="Digite o que procura..." style="width:80%;display:inline;">
+                                <input type="text" name="busca_smart" class="form-control" placeholder="Digite o que procura..." value="" aria-label="Digite o que procura..." style="width:80%;display:inline;">
                                 <button class="btn btn-primary pull-right" type="submit" style="display: table-cell;"><i class="glyphicon glyphicon-search"></i></button>
                             </div>
                         </div>
