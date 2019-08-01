@@ -82,13 +82,11 @@ add_action('admin_menu', function () {
 
 // add custom scripts (post, page, false = on head)
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('sdplugin-bootstrap', plugins_url('assets/css/bootstrap-minimal.css', __FILE__), array(), '1.0.0', false);
-    wp_enqueue_style('sdplugin-smartdealer', plugins_url('assets/css/smartdealer.css', __FILE__), array(), '1.0.0', false);
-    wp_enqueue_style('sdplugin-jquery-ui', plugins_url('assets/css/jquery-ui.min.css', __FILE__), array(), '1.0.0', false);
-    wp_enqueue_script('sdplugin-jquery', plugins_url('assets/js/jquery.js', __FILE__), array(), '1.11.0', false);
-    wp_enqueue_script('sdplugin-bootstrap', plugins_url('assets/js/bootstrap.min.js', __FILE__), array(), '4.1.3', false);
-    wp_enqueue_script('sdplugin-jquery-ui', plugins_url('assets/js/jquery-ui.min.js', __FILE__), array(), '1.11.3', false);
-    wp_enqueue_script('sdplugin-smartdealer', plugins_url('assets/js/smartdealer.js', __FILE__), array(), '1.0.0', false);
+    wp_enqueue_style('sdplugin-bootstrap-css', plugins_url('assets/css/bootstrap-minimal.css', __FILE__), array(), '1.0.0', false);
+    wp_enqueue_style('sdplugin-jquery-ui-css', plugins_url('assets/css/jquery-ui.min.css', __FILE__), array(), '1.0.0', false);
+    wp_enqueue_script('sdplugin-jquery-js', plugins_url('assets/js/jquery.js', __FILE__), array(), '1.11.0', false);
+    wp_enqueue_script('sdplugin-bootstrap-js', plugins_url('assets/js/bootstrap.min.js', __FILE__), array(), '4.1.3', false);
+    wp_enqueue_script('sdplugin-jquery-ui-js', plugins_url('assets/js/jquery-ui.min.js', __FILE__), array(), '1.11.3', false);
 });
 
 // register shortcode

@@ -29,6 +29,14 @@ Ao adicionar a flag no conteúdo da página, o plugin irá automaticamente preen
 
 Corsia é o estoque futuro da concessionária quando houver integração disponível. 
 
+### Plugins Incompatíveis
+
+Lista de plugins que comprometem o funcionamento correto do plugin Smart Dealer. 
+
+| Nome         |  Versão  |
+| ------------- | ------------- 
+| Ultimate Member            | 2.0.48
+
 --
 
 Para mais informações, entre em contato com a Smart Dealer.

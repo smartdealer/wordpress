@@ -879,7 +879,7 @@ class SmartDealer extends stdClass
 
         global $wpdb;
         $api = $this;
-  
+
         if (!is_admin() && $this->connect()) {
             foreach ($this->schema as $k => $b) {
 
@@ -888,8 +888,11 @@ class SmartDealer extends stdClass
                     // hide admin bar
                     show_admin_bar(false);
 
+                    // load Smart JS library
+                    $this->loadLibrary();
+
                     // create scope
-                    ob_start(null, null);
+                    ob_start('trim', 0);
 
                     // save use
                     $this->in_use[] = $k;
@@ -920,12 +923,18 @@ class SmartDealer extends stdClass
                     break;
                 }
             }
-            
+
             // return
             return (!empty($c)) ? $c : '';
         } else {
             return 'Não foi possível conectar ao webservice';
         }
+    }
+
+    private function loadLibrary()
+    {
+        echo ('<script type="text/javascript" src="' . plugins_url('../assets/js/smartdealer.js', __FILE__) . '"></script>');
+        echo ('<link rel="stylesheet" href="' . plugins_url('../assets/css/smartdealer.css', __FILE__) . '" type="text/css" media="all" />');
     }
 
     private function getCache($key)
