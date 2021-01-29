@@ -13,7 +13,7 @@ Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integraç�
 
 OBS: Ao criar um novo usuário de integração, escolha a opção tipo/fluxo "Agência".
 
-### Requísitos
+### Requisitos
 * Rewrite Mode do Apache ativo
 * Bibliotecas php-gd ou php-imagick
 
