@@ -3,6 +3,10 @@
 
 Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integração via webservices para Wordpress.
 
+### Requisitos
+* Rewrite Mode do Apache ativo
+* Bibliotecas php-gd ou php-imagick
+
 ### Instalação
 
 1. Faça download do instalador, instale e ative o plugin
@@ -12,10 +16,6 @@ Exiba seu estoque online e em tempo real com o plugin Smart Dealer de integraç�
 5. Configure no plugin as páginas de destino (página da oferta/detalhes do veículo)
 
 OBS: Ao criar um novo usuário de integração, escolha a opção tipo/fluxo "Agência".
-
-### Requisitos
-* Rewrite Mode do Apache ativo
-* Bibliotecas php-gd ou php-imagick
 
 ### Flags de conteúdo
 
