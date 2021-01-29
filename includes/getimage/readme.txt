@@ -1,10 +1,12 @@
 ﻿/**
  * Local image cacher, to loading images fasting
  *
- * @package   Smart Dealer Getimage
+ * @package   Smart Dealership, Numeor Framework (c)
  * @author    Patrick Otto <patrick@smartdealership.com.br>
- * @version   2.0.1
- * @copyright Smart Dealer (c), Sept 2014-2017
+ * @author    William Pamplona <will@smartdealership.com.br>
+ * @author    Jonas de Magalhães Gomes <jonas@smartdealership.com.br>
+ * @version   1.0.10
+ * @copyright Smart Dealer (c), Sept 2014-2015
  * @see       http://www.smartdealer.com.br
  * 
  * Installation Suport

@@ -7,12 +7,10 @@
  * @see       Class of getimage control
  */
 // Config core integration
+define('DS', (PHP_OS == 'Linux' or PHP_OS == 'Darwin') ? '/' : '\\');
 define('CURRENT_DIR', dirname(__FILE__) . DS . '..' . DS);
 define('CACHE_DIR', CURRENT_DIR . 'cache' . DS);
 define('CACHE_DEFAULT', CURRENT_DIR . 'default' . DS);
-
-#error_reporting(E_ALL);
-#ini_set('display_errors', 1);
 
 // - - - - - - - - - - - - - - - - - - -
 //  DefaultImage
@@ -20,7 +18,7 @@ define('CACHE_DEFAULT', CURRENT_DIR . 'default' . DS);
 
 function DefaultImage() {
 
-    global $quality, $thumb_h, $thumb_w, $ttl;
+    global $quality, $thumb_h, $thumb_w;
 
     $defaultImg = CACHE_DEFAULT . 'default.jpg';
 
@@ -40,21 +38,19 @@ function DefaultImage() {
         );
 
         // create thumb
-        $thumb = SmartResizeImagick($defaultImg, $thumb_w, $thumb_h, null, $info, false);
+        $thumb = SmartResizeImage($defaultImg, $thumb_w, $thumb_h, null, $info, false);
 
         // check if image was rendenized
         $return = ($thumb) ? $thumb : $sendImg;
 
         // valid quality
         $a = (min(9, $quality / 10) - 9);
-        $quality = ($a >= 0 && $a <= 9) ? $a : 5;
+        $quality = ($a >= 0 && $a <= 9) ? $a : 7;
 
         // send image
-        header('Pragma: public');
-        header('Cache-Control: max-age=' . $ttl);
-        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + $ttl));
         header('Content-type: image/jpg');
-        imagejpeg($return, null, $quality);
+        header('Cache-Control: public');
+        imagepng($return, null, $quality);
         imagedestroy($return);
 
         exit(0);
@@ -72,8 +68,6 @@ function DefaultImage() {
 function DetectImage($uri, $local = 0) {
 
     global $filterImage;
-	
-	  $send = false;
 
     if ($filterImage) {
 
@@ -108,9 +102,12 @@ function DetectImage($uri, $local = 0) {
     // detect image from string
     if ($local)
         $send = imagecreatefromstring(file_get_contents($uri));
-    elseif(empty($send))
-        $send = imagecreatefromstring(@curl_file_get_contents($uri));
-
+    elseif (empty($send) && ($content = curl_file_get_contents($uri)))
+        $send = imagecreatefromstring($content['content']);
+    
+    // valid new image created
+    if (empty($send) or ! is_resource($send))
+        DefaultImage();
 
     // callback
     return $send;
@@ -209,24 +206,15 @@ function SmartResizeImage($img, $w, $h, $newfilename, $imgInfo, $save = true) {
 
 function SendImageFromCache($src, $cached = true) {
 
-    global $ttl;
-	
     // set header
-    header('Pragma: public');
-    header('Cache-Control: max-age=' . $ttl);
     header('Content-type: image/jpg');
+    header('Cache-Control: public');
+
+    // set cache signal
     header('Sd-signature: ' . ($cached ? 'Cached Image' : 'Created Image'));
 
-	$handle = fopen($src, "r");
-
-    while(!feof($handle)) {
-        echo fgets($handle);
-    }
-
-    fclose($handle);
-	
-	// kill
-	exit();
+    // gzhandler
+    die(ob_gzhandler(file_get_contents($src), 9));
 }
 
 // - - - - - - - - - - - - - - - - - - -
@@ -237,21 +225,11 @@ function CreateImageToCache($handle, $thumb_w, $thumb_h, $back, $opt, $src) {
 
     global $quality;
 
-    $remote_image = DetectImage($handle, 1);
-
-    if (!$remote_image) {
-        return DefaultImage();
-    }
+    $remote_image = DetectImage($handle);
 
     $w = imagesx($remote_image);
     $h = imagesy($remote_image);
 
-	// Valid size of the thumb
-    if ($thumb_w > 1920)
-        $thumb_w = 650;
-    if ($thumb_h > 1920)
-        $thumb_h = 650;
-	
     if ($h != 0)
         $q = $w / $h;
 
@@ -267,6 +245,16 @@ function CreateImageToCache($handle, $thumb_w, $thumb_h, $back, $opt, $src) {
                 $thumb_h = ((int) $thumb_w / $q);
         endif;
     endif;
+
+    // Valid size of the thumb
+    if ($thumb_w > 1000)
+        $thumb_w = 650;
+    if ($thumb_w < 10)
+        $thumb_w = 10;
+    if ($thumb_h > 1000)
+        $thumb_h = 650;
+    if ($thumb_h < 10)
+        $thumb_h = 10;
 
     // create thumb
     $thumb = imagecreatetruecolor($thumb_w, $thumb_h);
@@ -381,29 +369,32 @@ function CheckRemoteFile($url) {
 
 function curl_file_get_contents($url) {
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    #curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-    curl_setopt($ch, CURLOPT_ENCODING, '');
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, 0);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, null);
-    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HTTPGET, null);
-    curl_setopt($ch, CURLOPT_NOBODY, null);
-    curl_setopt($ch, CURLOPT_POST, null);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, null);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, CACHE_DIR . 'cookies.txt');
-    curl_setopt($ch, CURLOPT_COOKIEFILE, CACHE_DIR . 'cookies.txt');
-    curl_setopt($ch, CURLOPT_COOKIESESSION, 1);
-    $data = curl_exec($ch);
-    curl_close($ch);
+    // set address
+    $curl = curl_init(trim($url, ' ?'));
+
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+    curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)");
+    curl_setopt($curl, CURLOPT_FAILONERROR, TRUE);
+    curl_setopt($curl, CURLOPT_AUTOREFERER, TRUE);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+    curl_setopt($curl, CURLOPT_VERBOSE, TRUE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    // request content
+    $content = curl_exec_follow($curl);
+
+    $a = array(
+        'type' => curl_getinfo($curl, CURLINFO_CONTENT_TYPE),
+        'content' => $content,
+        'status' => curl_getinfo($curl, CURLINFO_HTTP_CODE)
+    );
+
+    // close
+    curl_close($curl);
 
     // return
-    return (preg_match('/jpg|png|jpeg|gif|exif|JFIF/im', $data)) ? $data : null;
+    return (preg_match('/^200|304|301|300$/m', $a['status']) && preg_match('/jpg|png|jpeg|gif$/i', $a['type'])) ? $a : null;
 }
 
 // - - - - - - - - - - - - - - - - - - -
